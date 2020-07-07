@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CLiK</string>
+    <string name="feed">Feed</string>
+    <string name="friends">Friends</string>
+    <string name="noti">Notification</string>
+    <string name="chat">Chat</string>
+    <string name="setting">Setting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
