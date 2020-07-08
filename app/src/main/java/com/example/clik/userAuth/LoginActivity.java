@@ -1,12 +1,17 @@
 package com.example.clik.userAuth;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +32,12 @@ public class LoginActivity extends AppCompatActivity {
 
         number_edit = findViewById(R.id.mobile_number);
         Button get_otp = findViewById(R.id.get_otp);
+        TextView info = findViewById(R.id.info);
+        String text = "We will send you an One Time Password (OTP) on this mobile number.";
+        SpannableString ss = new SpannableString(text);
+        StyleSpan boldspan = new StyleSpan(Typeface.BOLD);
+        ss.setSpan(boldspan,20,43, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        info.setText(ss);
 
         get_otp.setOnClickListener(new View.OnClickListener() {
             @Override
