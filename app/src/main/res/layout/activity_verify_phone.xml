@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:textAlignment="center"
     tools:context=".userAuth.VerifyPhoneActivity">
 
     <TextView
@@ -11,30 +12,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:padding="10dp"
+        android:paddingStart="25dp"
         android:text="Verify Mobile Number"
         android:textColor="#000000"
         android:textSize="25sp" />
 
+    <TextView
+        android:id="@+id/info2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_text"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:text="Enter the verification code we just sent to your mobile number."
+        android:textAlignment="center"></TextView>
+
     <EditText
         android:id="@+id/otp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/top_text"
-        android:layout_marginStart="10dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/info2"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:inputType="number" />
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/custom_input"
+        android:inputType="number"
+        android:padding="10dp" />
 
     <Button
         android:id="@+id/verify"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/otp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        android:text="continue" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/round"
+        android:padding="10dp"
+        android:text="continue"
+        android:textColor="#FFFFFF" />
 
 
 </RelativeLayout>
