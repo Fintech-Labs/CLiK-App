@@ -1,7 +1,7 @@
 package com.example.clik.userAuth;
 
 public class CountryData {
-    public static final String[] countryNames = {"Afghanistan", "Albania",
+    public static final String[] countryNames = {"India", "Afghanistan", "Albania",
             "Algeria", "Andorra", "Angola", "Antarctica", "Argentina",
             "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan",
             "Bahrain", "Bangladesh", "Belarus", "Belgium", "Belize", "Benin",
@@ -18,7 +18,7 @@ public class CountryData {
             "France", "French Polynesia", "Gabon", "Gambia", "Georgia",
             "Germany", "Ghana", "Gibraltar", "Greece", "Greenland",
             "Guatemala", "Guinea", "Guinea-bissau", "Guyana", "Haiti",
-            "Honduras", "Hong Kong", "Hungary", "India", "Indonesia", "Iran",
+            "Honduras", "Hong Kong", "Hungary", "Indonesia", "Iran",
             "Iraq", "Ireland", "Isle Of Man", "Israel", "Italy", "Ivory Coast",
             "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati",
             "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho",
@@ -46,7 +46,7 @@ public class CountryData {
             "Holy See (vatican City State)", "Venezuela", "Viet Nam",
             "Wallis And Futuna", "Yemen", "Zambia", "Zimbabwe"};
 
-    public static final String[] countryAreaCodes = {"93", "355", "213",
+    public static final String[] countryAreaCodes = {"91", "93", "355", "213",
             "376", "244", "672", "54", "374", "297", "61", "43", "994", "973",
             "880", "375", "32", "501", "229", "975", "591", "387", "267", "55",
             "673", "359", "226", "95", "257", "855", "237", "1", "238", "236",
@@ -54,7 +54,7 @@ public class CountryData {
             "385", "53", "357", "420", "45", "253", "670", "593", "20", "503",
             "240", "291", "372", "251", "500", "298", "679", "358", "33",
             "689", "241", "220", "995", "49", "233", "350", "30", "299", "502",
-            "224", "245", "592", "509", "504", "852", "36", "91", "62", "98",
+            "224", "245", "592", "509", "504", "852", "36", "62", "98",
             "964", "353", "44", "972", "39", "225", "1876", "81", "962", "7",
             "254", "686", "965", "996", "856", "371", "961", "266", "231",
             "218", "423", "370", "352", "853", "389", "261", "265", "60",

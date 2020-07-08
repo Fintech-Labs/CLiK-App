@@ -11,13 +11,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser()!=null){
             Intent intent = new Intent(this, MainActivity.class);

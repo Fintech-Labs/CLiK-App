@@ -2,7 +2,6 @@ package com.example.clik.userAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.arch.core.executor.TaskExecutor;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.clik.EditProfileActivity;
+import com.example.clik.MainActivity;
 import com.example.clik.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class VerifyPhoneActivity extends AppCompatActivity {
 
     private String verificationId;
+    private String status;
     private FirebaseAuth mAuth;
     private EditText code1;
 
@@ -37,6 +37,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         code1 = findViewById(R.id.otp);
         mAuth = FirebaseAuth.getInstance();
         String phonenumber = getIntent().getStringExtra("phonenumber");
+        status = getIntent().getStringExtra("status");
         sendVerificationCode(phonenumber);
 
         findViewById(R.id.verify).setOnClickListener(new View.OnClickListener() {
@@ -62,9 +63,17 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Intent intent = new Intent(VerifyPhoneActivity.this, EditProfileActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    if(status.equals("register")){
+                        Intent intent = new Intent(VerifyPhoneActivity.this, EditProfileActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
                 }
                 else {
                     Toast.makeText(VerifyPhoneActivity.this,  task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -76,7 +85,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private void sendVerificationCode(String number){
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 number,
-                60,
+                120,
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallBack
