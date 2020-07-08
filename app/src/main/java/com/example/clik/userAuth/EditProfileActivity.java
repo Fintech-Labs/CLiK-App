@@ -1,15 +1,18 @@
 package com.example.clik.userAuth;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.clik.MainActivity;
 import com.example.clik.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +20,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -26,55 +30,58 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private EditText display_name;
     private EditText email;
-    private Button register;
-    private FirebaseAuth mAuth;
+    private String default_pic = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        mAuth = FirebaseAuth.getInstance();
+
+        final FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         email = findViewById(R.id.email);
         display_name = findViewById(R.id.display_name);
+        ImageView profile_pic = findViewById(R.id.profile_pic);
 
-        register = findViewById(R.id.register);
+        Button register = findViewById(R.id.register);
+
+        Glide.with(EditProfileActivity.this).load(default_pic).into(profile_pic);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ProgressDialog pd = new ProgressDialog(EditProfileActivity.this);
+                pd.setMessage("Logging In");
+                pd.show();
                 final String email_text = email.getText().toString().trim();
                 final String display_name_text = display_name.getText().toString().trim();
 
-                if(email_text.isEmpty()){
+                if (email_text.isEmpty()) {
                     email.setError("Empty");
                     email.requestFocus();
                 }
-                if(display_name_text.isEmpty()){
+                if (display_name_text.isEmpty()) {
                     display_name.setError("Empty");
                     display_name.requestFocus();
-                }
-                else{
-                    final FirebaseUser user = mAuth.getCurrentUser();
-
-                    assert user != null;
-                    user.updateEmail(email_text).addOnSuccessListener(new OnSuccessListener<Void>() {
+                } else {
+                    assert fuser != null;
+                    fuser.updateEmail(email_text).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             HashMap<String, Object> map = new HashMap<>();
+                            map.put("uId", fuser.getUid());
                             map.put("Name", display_name_text);
                             map.put("Bio", "");
-                            map.put("Email", email_text);
-                            map.put("PhoneNumber", user.getPhoneNumber());
-                            FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            map.put("ProfileUri", default_pic);
+                            FirebaseDatabase.getInstance().getReference().child("users").child(fuser.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
-                                    }
-                                    else{
+                                    } else {
                                         Toast.makeText(EditProfileActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                                     }
+                                    pd.dismiss();
                                 }
                             });
                         }

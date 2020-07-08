@@ -1,20 +1,38 @@
 package com.example.clik.Model;
 
 public class User {
+    String uId;
     String Bio;
-    String Email;
     String Name;
-    String Phonenumber;
+    String ProfileUri;
+
 
     public User() {
     }
 
-    public User(String bio, String email, String name, String phonenumber) {
+    public User(String uId, String bio, String name, String profileUri) {
+        uId = uId;
         Bio = bio;
-        Email = email;
         Name = name;
-        Phonenumber = phonenumber;
+        ProfileUri = profileUri;
     }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
+
+    public String getProfileUri() {
+        return ProfileUri;
+    }
+
+    public void setProfileUri(String profileUri) {
+        ProfileUri = profileUri;
+    }
+
 
     public String getBio() {
         return Bio;
@@ -22,14 +40,6 @@ public class User {
 
     public void setBio(String bio) {
         Bio = bio;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
     }
 
     public String getName() {
@@ -40,11 +50,4 @@ public class User {
         Name = name;
     }
 
-    public String getPhonenumber() {
-        return Phonenumber;
-    }
-
-    public void setPhonenumber(String phonenumber) {
-        Phonenumber = phonenumber;
-    }
 }
