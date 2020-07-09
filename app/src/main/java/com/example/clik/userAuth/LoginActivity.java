@@ -49,13 +49,14 @@ public class LoginActivity extends AppCompatActivity {
                     number_edit.setError("Valid Number Is Required");
                     number_edit.requestFocus();
                 }
+                else{
+                    final String phonenumber = "+" + code + number;
 
-                final String phonenumber = "+" + code + number;
-
-                Intent intent = new Intent(LoginActivity.this, VerifyPhoneActivity.class);
-                intent.putExtra("phonenumber", phonenumber);
-                intent.putExtra("status", "register");
-                startActivity(intent);
+                    Intent intent = new Intent(LoginActivity.this, VerifyPhoneActivity.class);
+                    intent.putExtra("phonenumber", phonenumber);
+                    intent.putExtra("status", "register");
+                    startActivity(intent);
+                }
             }
         });
 

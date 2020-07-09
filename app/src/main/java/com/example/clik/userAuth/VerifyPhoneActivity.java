@@ -1,6 +1,5 @@
 package com.example.clik.userAuth;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,14 +29,11 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private String verificationId;
     private FirebaseAuth mAuth;
     private EditText code1;
-    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
-
-        pd = new ProgressDialog(this);
 
         code1 = findViewById(R.id.otp);
         mAuth = FirebaseAuth.getInstance();
@@ -52,7 +48,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     code1.setError("Enter Code");
                     code1.requestFocus();
                 }
-                verifyCode(code);
+                else{
+                    verifyCode(code);
+                }
             }
         });
     }
@@ -67,8 +65,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    pd.setMessage("Logging In");
-                    pd.show();
                     FirebaseUser user = Objects.requireNonNull(task.getResult()).getUser();
                     assert user != null;
                     long creationTimestamp = Objects.requireNonNull(user.getMetadata()).getCreationTimestamp();
@@ -83,10 +79,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
-                    pd.dismiss();
                 } else {
                     Toast.makeText(VerifyPhoneActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                    pd.dismiss();
                 }
             }
         });
@@ -95,7 +89,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private void sendVerificationCode(String number) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 number,
-                120,
+                60,
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
                 mCallBack
