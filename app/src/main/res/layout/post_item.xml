@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    app:cardCornerRadius="10dp"
+    android:layout_marginTop="7dp"
+    app:cardCornerRadius="5dp"
     android:background="@drawable/white_background">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp">
@@ -23,18 +23,19 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_pic"
                 android:layout_width="45dp"
-                android:layout_marginStart="10dp"
+
                 android:layout_height="45dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp" />
 
             <LinearLayout
-
-                android:layout_toEndOf="@+id/profile_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="8dp"
+                android:layout_toEndOf="@+id/profile_pic"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -42,6 +43,7 @@
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="username"
                     android:textAppearance="@style/username"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -51,29 +53,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:text="bio"
                     android:textAppearance="@style/username"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_black"
+                android:layout_marginEnd="15dp"/>
 
-        <TextView
-            android:id="@+id/disc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:textAppearance="@style/username"
-            android:textSize="14sp"
-            tools:ignore="RtlSymmetry" />
+        </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:cardCornerRadius="10dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/post_image"
@@ -83,7 +81,8 @@
                 android:contentDescription="@string/todo"
                 android:scaleType="fitCenter"
                 android:src="@drawable/white_background"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                />
 
         </androidx.cardview.widget.CardView>
 
@@ -94,15 +93,15 @@
 
             <ImageView
                 android:id="@+id/like"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentStart="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
                 android:contentDescription="@string/todo"
-                android:src="@drawable/ic_favorite_border_black_24dp" />
+                android:layout_toStartOf="@+id/comment"
+                android:src="@drawable/ic_heart" />
 
             <TextView
                 android:id="@+id/no_likes"
@@ -110,35 +109,60 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:text="0"
-                android:layout_toEndOf="@+id/like"
+                android:textAppearance="@style/username"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_toEndOf="@+id/no_likes"
+                android:id="@+id/no_likes_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="15dp"
+                android:text="Likes"
                 android:textAppearance="@style/username"
                 android:textSize="14sp" />
 
 
             <ImageView
                 android:id="@+id/comment"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="15dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@+id/no_likes"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_message_circle" />
 
             <TextView
+
+                android:layout_toEndOf="@+id/no_likes_text"
                 android:id="@+id/no_comments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="25dp"
                 android:layout_centerVertical="true"
                 android:text="0"
                 android:layout_marginTop="15dp"
-                android:layout_toEndOf="@+id/comment"
+
+                android:textAppearance="@style/username"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_toEndOf="@+id/no_comments"
+                android:id="@+id/no_comments_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_centerVertical="true"
+                android:text="Comments"
+                android:layout_marginTop="15dp"
+
                 android:textAppearance="@style/username"
                 android:textSize="14sp" />
 

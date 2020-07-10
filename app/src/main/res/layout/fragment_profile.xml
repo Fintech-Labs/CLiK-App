@@ -8,13 +8,13 @@
         android:id="@+id/appbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#241F29">
+        android:background="@color/colorPrimary">
 
         <Toolbar
             android:id="@+id/toolbar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#241F29">
+            android:background="#8FABF4">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -127,14 +127,19 @@
             android:textSize="15sp"
             tools:ignore="RtlSymmetry" />
 
-        <ImageView
+        <Button
             android:id="@+id/editprofile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/bio"
-            android:contentDescription="@string/todo"
-            android:padding="10dp"
-            android:src="@drawable/ic_btn_edit" />
+            android:layout_height="30dp"
+            android:layout_below="@+id/bio"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_profile"
+
+            android:text="edit profile"
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
