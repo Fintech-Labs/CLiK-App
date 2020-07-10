@@ -105,7 +105,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             public void onClick(View v) {
                 if (holder.like.getTag().equals("like")) {
                     FirebaseDatabase.getInstance().getReference().child("likes").
-                            child(post.getPostId()).child(fuser.getUid()).setValue(true);
+                            child(post.getPostId()).child(fuser.getUid()).child("uId").setValue(fuser.getUid());
                 } else {
                     FirebaseDatabase.getInstance().getReference().child("likes").
                             child(post.getPostId()).child(fuser.getUid()).removeValue();
@@ -212,7 +212,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imageProfile;
         public ImageView postImage;

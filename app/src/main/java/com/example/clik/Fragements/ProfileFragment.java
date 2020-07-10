@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.PointerIconCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.clik.Model.User;

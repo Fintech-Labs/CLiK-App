@@ -26,17 +26,21 @@ public class CommentActivity extends AppCompatActivity {
     private CommentFragment commentFragment;
     private LikesFragment likesFragment;
 
+    private String postId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
+        postId = getIntent().getStringExtra("postId");
+
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
 
         commentFragment = new CommentFragment();
-        likesFragment = new LikesFragment();
+        likesFragment = new LikesFragment(postId);
 
         tabLayout.setupWithViewPager(viewPager);
 
