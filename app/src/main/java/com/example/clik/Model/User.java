@@ -11,7 +11,7 @@ public class User {
     }
 
     public User(String uId, String bio, String name, String profileUri) {
-        uId = uId;
+        this.uId = uId;
         Bio = bio;
         Name = name;
         ProfileUri = profileUri;
@@ -24,15 +24,6 @@ public class User {
     public void setuId(String uId) {
         this.uId = uId;
     }
-
-    public String getProfileUri() {
-        return ProfileUri;
-    }
-
-    public void setProfileUri(String profileUri) {
-        ProfileUri = profileUri;
-    }
-
 
     public String getBio() {
         return Bio;
@@ -50,4 +41,11 @@ public class User {
         Name = name;
     }
 
+    public String getProfileUri() {
+        return ProfileUri;
+    }
+
+    public void setProfileUri(String profileUri) {
+        ProfileUri = profileUri;
+    }
 }

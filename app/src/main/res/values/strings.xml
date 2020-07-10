@@ -7,4 +7,14 @@
     <string name="setting">Setting</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="write_a_caption">Write A Caption</string>
+    <string name="post">Post</string>
+    <string name="posts">Posts</string>
+    <string name="full_name">Full name</string>
+    <string name="bio">Bio</string>
+    <string name="name">Name</string>
+    <string name="change_prof">"Change Profile "</string>
+    <string name="email">Email</string>
+    <string name="change_email">Set Email/Phone</string>
 </resources>

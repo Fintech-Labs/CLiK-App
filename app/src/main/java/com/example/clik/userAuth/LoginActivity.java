@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("phonenumber", phonenumber);
                     intent.putExtra("status", "register");
                     startActivity(intent);
+                    finish();
                 }
             }
         });

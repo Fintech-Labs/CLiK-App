@@ -11,4 +11,9 @@
         <item name="android:windowBackground">@drawable/back_splash_screen</item>
     </style>
 
+    <style name="username">
+        <item name="android:textSize">50sp</item>
+        <item name="android:textColor">#41535A</item>
+    </style>
+
 </resources>

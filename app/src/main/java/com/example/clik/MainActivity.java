@@ -11,7 +11,7 @@ import com.example.clik.Fragements.ChatFragment;
 import com.example.clik.Fragements.FeedFragment;
 import com.example.clik.Fragements.FriendsFragment;
 import com.example.clik.Fragements.NotiFragment;
-import com.example.clik.Fragements.SettingFragment;
+import com.example.clik.Fragements.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case R.id.nav_settings:
-                            sFragment = new SettingFragment();
+                            sFragment = new ProfileFragment();
                             break;
 
                     }
