@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.brouding.doubletaplikeview.DoubleTapLikeView;
 import com.example.clik.Feed.CommentActivity;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
@@ -36,6 +37,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Post> mPosts;
+
 
     private FirebaseUser fuser;
 
@@ -60,7 +62,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         isLiked(post.getPostId(), holder.like);
         noLikes(post.getPostId(), holder.noOfLikes);
         getComments(post.getPostId(), holder.noOfComments);
-        Picasso.get().load(post.getPostImageUri()).networkPolicy(NetworkPolicy.OFFLINE).into(holder.postImage, new Callback() {
+        Picasso.get().load(post.getPostImageUri()).fit().networkPolicy(NetworkPolicy.OFFLINE).into(holder.mDoubleTapLikeView.imageView, new Callback() {
             @Override
             public void onSuccess() {
 
@@ -121,6 +123,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 intent.putExtra("postId", post.getPostId());
                 intent.putExtra("authorId", post.getPublisher());
                 mContext.startActivity(intent);
+
+            }
+        });
+        holder.mDoubleTapLikeView.setOnTapListener(new DoubleTapLikeView.OnTapListener() {
+            @Override
+            public void onDoubleTap(View view) {
+                if (holder.like.getTag().equals("like")) {
+                    FirebaseDatabase.getInstance().getReference().child("likes").
+                            child(post.getPostId()).child(fuser.getUid()).child("uId").setValue(fuser.getUid());
+                } else {
+                    FirebaseDatabase.getInstance().getReference().child("likes").
+                            child(post.getPostId()).child(fuser.getUid()).removeValue();
+                }
+            }
+
+            @Override
+            public void onTap() {
 
             }
         });
@@ -195,10 +214,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(fuser.getUid()).exists()) {
-                    imageView.setImageResource(R.drawable.ic_favorite_red_24dp);
+                    imageView.setImageResource(R.drawable.ic_heart_red);
                     imageView.setTag("liked");
                 } else {
-                    imageView.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                    imageView.setImageResource(R.drawable.ic_heart2);
                     imageView.setTag("like");
                 }
             }
@@ -226,9 +245,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView noOfComments;
         SocialTextView description;
 
+        private DoubleTapLikeView mDoubleTapLikeView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            mDoubleTapLikeView = itemView.findViewById(R.id.layout_double_tap_like);
             imageProfile = itemView.findViewById(R.id.profile_pic);
             postImage = itemView.findViewById(R.id.post_image);
             like = itemView.findViewById(R.id.like);
@@ -238,6 +259,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             noOfLikes = itemView.findViewById(R.id.no_likes);
             noOfComments = itemView.findViewById(R.id.no_comments);
             description = itemView.findViewById(R.id.post_description);
+
 
         }
     }

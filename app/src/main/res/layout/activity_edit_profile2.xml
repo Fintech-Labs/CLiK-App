@@ -65,14 +65,16 @@
                 app:cardCornerRadius="75dp">
                 <ImageView
                     android:id="@+id/profile_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    />
             </androidx.cardview.widget.CardView>
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="0dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
                 android:layout_alignRight="@+id/card_view"
                 android:layout_alignBottom="@+id/card_view"
                 android:src="@drawable/ic_photo"
