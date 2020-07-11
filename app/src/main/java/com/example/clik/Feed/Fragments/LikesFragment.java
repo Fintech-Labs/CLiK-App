@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clik.Adapter.LikeAdapter;
-import com.example.clik.Fragements.ProfileFragment;
 import com.example.clik.Model.Like;
 import com.example.clik.R;
 import com.google.firebase.database.DataSnapshot;

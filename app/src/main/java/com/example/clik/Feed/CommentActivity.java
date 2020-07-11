@@ -39,7 +39,7 @@ public class CommentActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
 
-        commentFragment = new CommentFragment();
+        commentFragment = new CommentFragment(postId);
         likesFragment = new LikesFragment(postId);
 
         tabLayout.setupWithViewPager(viewPager);
