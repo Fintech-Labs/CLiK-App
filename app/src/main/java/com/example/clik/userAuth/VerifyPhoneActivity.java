@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.clik.MainActivity;
 import com.example.clik.R;
+
+import com.gne.www.lib.OnPinCompletedListener;
+import com.gne.www.lib.PinView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
@@ -28,24 +31,33 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
     private String verificationId;
     private FirebaseAuth mAuth;
-    private EditText code1;
+    private PinView code1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
 
-        code1 = findViewById(R.id.otp);
+
+        code1 = findViewById(R.id.pinView);
         mAuth = FirebaseAuth.getInstance();
         String phonenumber = getIntent().getStringExtra("phonenumber");
         sendVerificationCode(phonenumber);
 
+        code1.setOnPinCompletionListener(new OnPinCompletedListener() {
+            @Override
+            public void onPinCompleted(String entirePin) {
+
+            }
+        });
         findViewById(R.id.verify).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String code = code1.getText().toString().trim();
                 if (code.isEmpty() || code.length() < 6) {
-                    code1.setError("Enter Code");
+                    Toast.makeText(VerifyPhoneActivity.this,"Enter Full Code",Toast.LENGTH_SHORT).show();
                     code1.requestFocus();
                 }
                 else{

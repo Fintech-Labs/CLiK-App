@@ -27,23 +27,12 @@
         android:text="Enter the verification code we just sent to your mobile number."
         android:textAlignment="center"></TextView>
 
-    <EditText
-        android:id="@+id/otp"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/info2"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/custom_input"
-        android:inputType="number"
-        android:padding="10dp" />
 
     <Button
         android:id="@+id/verify"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@+id/otp"
+        android:layout_below="@+id/pinView"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
@@ -61,6 +50,22 @@
         android:layout_centerHorizontal="true"
         android:textColor="#82A2F3"
         android:text="Resend OTP"></TextView>
+    <com.gne.www.lib.PinView
+        android:id="@+id/pinView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:textColor="@color/colorAccent"
+        app:pinCount="6"
+        app:inputType="number"
+        app:isPassword="false"
+        app:showPasswordToggle="true"
+        app:pinSize="32dp"
+        app:passwordToggleSize="30dp"
+        app:passwordToggleColor="@color/colorAccent"
+        android:layout_below="@id/info2"
+        android:layout_marginTop="10dp"
+        app:pinBackground="@drawable/custom_input"
+        />
 
 
 </RelativeLayout>
