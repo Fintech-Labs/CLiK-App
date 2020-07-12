@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostActivity">
+    android:orientation="vertical"
+    tools:context=".Feed.AddPostActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bar"
         android:background="?android:attr/windowBackground">
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/windowBackground"
-            android:id="@+id/toolbar">
+            android:background="?android:attr/windowBackground">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:src="@drawable/ic_close_black_24dp"
-                    android:id="@+id/close"/>
+                    android:src="@drawable/ic_close_black_24dp" />
 
                 <TextView
+                    android:id="@+id/post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="POST"
-                    android:id="@+id/post"
-                    android:textSize="18sp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:text="@string/post"
                     android:textColor="@color/colorPrimary"
-                    android:layout_centerVertical="true"/>
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
@@ -47,30 +47,81 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
+        android:layout_below="@+id/bar"
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:gravity="top|start"
+        android:hint="@string/add_description_hashtag"
+        android:maxLines="5"
+        app:hashtagColor="@color/colorPrimary"
+        app:socialFlags="hashtag|mention"
+        android:background="@drawable/disp_background"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/post_images_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/description"
+        android:layout_above="@+id/add_post_images"/>
+
     <LinearLayout
+        android:id="@+id/add_post_images"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/image_added"/>
-
-        <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
+        <LinearLayout
+            android:id="@+id/add_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="Description..."
-            android:maxLines="5"
-            android:id="@+id/description"
-            app:socialFlags="hashtag|mention"
-            app:hashtagColor="@color/colorPrimary"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_image"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/todo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/add_a_image"
+                android:layout_margin="10dp"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/add_img_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_camera"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/todo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/open_camera"
+                android:layout_margin="10dp"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+
+
+</RelativeLayout>

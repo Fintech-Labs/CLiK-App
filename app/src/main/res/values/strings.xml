@@ -17,4 +17,7 @@
     <string name="change_prof">"Change Profile "</string>
     <string name="email">Email</string>
     <string name="change_email">Set Email/Phone</string>
+    <string name="add_description_hashtag">Add Description, HashTag</string>
+    <string name="add_a_image">Add a Image</string>
+    <string name="open_camera">Open Camera</string>
 </resources>

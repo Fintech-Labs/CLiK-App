@@ -83,7 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 assert user != null;
                 holder.username.setText(user.getName());
                 holder.bio.setText(user.getBio());
-                Picasso.get().load(user.getProfileUri()).networkPolicy(NetworkPolicy.OFFLINE).resize(4, 5).into(holder.imageProfile, new Callback() {
+                Picasso.get().load(user.getProfileUri()).networkPolicy(NetworkPolicy.OFFLINE).into(holder.imageProfile, new Callback() {
                     @Override
                     public void onSuccess() {
 
