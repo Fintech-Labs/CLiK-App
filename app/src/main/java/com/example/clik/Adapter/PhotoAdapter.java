@@ -72,6 +72,7 @@ public class PhotoAdapter extends PagerAdapter {
             }
         });
 
+
         container.addView(view);
         return view;
     }

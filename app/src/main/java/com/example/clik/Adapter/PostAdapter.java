@@ -133,8 +133,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     mImages.add(postImages);
                     photoAdapter.notifyDataSetChanged();
                 }
-
-
                 pd2.dismiss();
             }
 
@@ -200,23 +198,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        holder.doubleTapLikeView.setOnTapListener(new DoubleTapLikeView.OnTapListener() {
-            @Override
-            public void onDoubleTap(View view) {
-                if (holder.like.getTag().equals("like")) {
-                    FirebaseDatabase.getInstance().getReference().child("likes").
-                            child(post.getPostId()).child(fuser.getUid()).child("uId").setValue(fuser.getUid());
-                } else {
-                    FirebaseDatabase.getInstance().getReference().child("likes").
-                            child(post.getPostId()).child(fuser.getUid()).removeValue();
-                }
-            }
-
-            @Override
-            public void onTap() {
-
-            }
-        });
+//        holder.doubleTapLikeView.setOnTapListener(new DoubleTapLikeView.OnTapListener() {
+//            @Override
+//            public void onDoubleTap(View view) {
+//                if (holder.like.getTag().equals("like")) {
+//                    FirebaseDatabase.getInstance().getReference().child("likes").
+//                            child(post.getPostId()).child(fuser.getUid()).child("uId").setValue(fuser.getUid());
+//                } else {
+//                    FirebaseDatabase.getInstance().getReference().child("likes").
+//                            child(post.getPostId()).child(fuser.getUid()).removeValue();
+//                }
+//            }
+//
+//            @Override
+//            public void onTap() {
+//
+//            }
+//        });
 
     }
 
@@ -297,7 +295,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            doubleTapLikeView = itemView.findViewById(R.id.layout_double_tap_like);
+//            doubleTapLikeView = itemView.findViewById(R.id.layout_double_tap_like);
             viewPager = itemView.findViewById(R.id.viewPager);
             imageProfile = itemView.findViewById(R.id.profile_pic);
             like = itemView.findViewById(R.id.like);

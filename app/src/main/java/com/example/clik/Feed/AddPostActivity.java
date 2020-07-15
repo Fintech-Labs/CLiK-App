@@ -266,17 +266,21 @@ public class AddPostActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            String uri = fileToUpload.getDownloadUrl().toString();
 
-                            downloadUri.add(uri);
+                            fileToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
 
-                            fileDoneList.remove(finalI);
-                            fileDoneList.add(finalI, "done");
+                                    downloadUri.add(uri.toString());
 
-                            uploadListAdpater.notifyDataSetChanged();
+                                    fileDoneList.remove(finalI);
+                                    fileDoneList.add(finalI, "done");
 
-                            pd2.dismiss();
+                                    uploadListAdpater.notifyDataSetChanged();
 
+                                    pd2.dismiss();
+                                }
+                            });
                         }
                     });
 
@@ -340,7 +344,7 @@ public class AddPostActivity extends AppCompatActivity {
         final ProgressDialog pd3 = new ProgressDialog(AddPostActivity.this);
         pd3.setMessage("Getting Image");
         pd3.show();
-        String fileName = System.currentTimeMillis() + "." + getFileExtension(fileUri);
+        final String fileName = System.currentTimeMillis() + "." + getFileExtension(fileUri);
 
         fileNameList.add(fileName);
         fileDoneList.add("uploading");
@@ -351,14 +355,17 @@ public class AddPostActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                String uri = fileToUpload.getDownloadUrl().toString();
+                fileToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        downloadUri.add(uri.toString());
+                        fileDoneList.clear();
+                        fileDoneList.add("done");
 
-                downloadUri.add(uri);
-                fileDoneList.clear();
-                fileDoneList.add("done");
-
-                uploadListAdpater.notifyDataSetChanged();
-                pd3.dismiss();
+                        uploadListAdpater.notifyDataSetChanged();
+                        pd3.dismiss();
+                    }
+                });
             }
         });
     }
