@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="7dp"
@@ -75,21 +74,19 @@
                 android:id="@+id/layout_double_tap_like"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
-                app:icon="@drawable/ic_heart"
-                app:scaleType="fitXY"
-
-                app:disableAnimation="false"
+                android:elevation="5dp"
                 app:adjustViewBounds="true"
+                app:disableAnimation="false"
                 app:doubleTapIn="250"
-                android:elevation="5dp">
-                <ImageView
-                    android:id="@+id/post_image"
+                app:icon="@drawable/ic_heart"
+                app:scaleType="fitXY">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/todo"
-                    android:scaleType="fitXY"
-                    tools:ignore="MissingConstraints" />
+                    android:layout_height="match_parent" />
+
+
             </com.brouding.doubletaplikeview.DoubleTapLikeView>
 
 

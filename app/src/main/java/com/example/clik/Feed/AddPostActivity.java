@@ -143,18 +143,16 @@ public class AddPostActivity extends AppCompatActivity {
 
     }
 
-    private void startCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA_CODE);
-    }
-
     private boolean checkCameraHardware(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
 
     private boolean allUpload() {
         boolean isComplete = false;
-        if (totalItemsSelected == fileDoneList.size()) {
+        if(fileDoneList.size() == 1){
+            isComplete = true;
+        }
+        else if (totalItemsSelected == fileDoneList.size()) {
             isComplete = true;
         }
         return isComplete;
@@ -182,7 +180,7 @@ public class AddPostActivity extends AppCompatActivity {
                     for (int i = 0; i < downloadUri.size(); i++) {
                         HashMap<String, String> map2 = new HashMap<>();
                         map2.put("imageUri", downloadUri.get(i));
-                        ref.child(postId).push().setValue(map2);
+                        FirebaseDatabase.getInstance().getReference().child("postImages").child(postId).push().setValue(map2);
                         map2.clear();
                     }
                     addHashTags();
@@ -260,7 +258,7 @@ public class AddPostActivity extends AppCompatActivity {
                     fileNameList.add(fileName);
                     fileDoneList.add("uploading");
 
-                    final StorageReference fileToUpload = mStorage.child("Images").child(fileName);
+                    final StorageReference fileToUpload = mStorage.child(fileName);
 
                     final int finalI = i;
 
@@ -339,12 +337,15 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     private void uploadSingleImage(Uri fileUri) {
+        final ProgressDialog pd3 = new ProgressDialog(AddPostActivity.this);
+        pd3.setMessage("Getting Image");
+        pd3.show();
         String fileName = System.currentTimeMillis() + "." + getFileExtension(fileUri);
 
         fileNameList.add(fileName);
         fileDoneList.add("uploading");
 
-        final StorageReference fileToUpload = mStorage.child("Images").child(fileName);
+        final StorageReference fileToUpload = mStorage.child(fileName);
 
         fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -353,9 +354,11 @@ public class AddPostActivity extends AppCompatActivity {
                 String uri = fileToUpload.getDownloadUrl().toString();
 
                 downloadUri.add(uri);
+                fileDoneList.clear();
                 fileDoneList.add("done");
 
                 uploadListAdpater.notifyDataSetChanged();
+                pd3.dismiss();
             }
         });
     }
