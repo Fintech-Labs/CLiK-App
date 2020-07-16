@@ -20,4 +20,21 @@
     <string name="add_description_hashtag">Add Description, HashTag</string>
     <string name="add_a_image">Add a Image</string>
     <string name="open_camera">Open Camera</string>
+
+    <!--    Intro slider string resources-->
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">CliK that Pic!</string>
+    <string name="slide_1_desc">The easiest way click photos and share it with friends!</string>
+
+    <string name="slide_2_title">Jaa Kabutar Jaa</string>
+    <string name="slide_2_desc">Start fun conversations with CliK Messages!</string>
+
+    <string name="slide_3_title">Stories are here!</string>
+    <string name="slide_3_desc">Need we say more?</string>
+
+    <string name="slide_4_title">Vayam Rakshamah</string>
+    <string name="slide_4_desc">We protect your data with the highest security standards.</string>
 </resources>
