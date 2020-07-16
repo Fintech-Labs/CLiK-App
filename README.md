@@ -2,7 +2,7 @@
 
 A place to connect and share what you love.
 
-Meet people all around the world, connect with friends all over India and around the world, share what you're upto and see how friends and family are having their moments. Be a part of the newest community of India and explore different cultures from Kashmir to Kanyakumari right from your home!
+Meet people all around the world, connect with friends all over India and around the world, share what you're upto and see how friends and family are having fun. Be a part of the newest community of India and explore different cultures from Kashmir to Kanyakumari right from your home!
 
 Show the world who you are. :earth_americas:
 
