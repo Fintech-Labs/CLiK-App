@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar2"
@@ -53,44 +54,107 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_pic"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            app:cardCornerRadius="40dp"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/todo" />
+            android:id="@+id/profile_pic1">
+
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+             />
+
+        </androidx.cardview.widget.CardView>
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/profile_pic"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:layout_toEndOf="@+id/profile_pic1"
+            >
 
 
-            <TextView
-                android:layout_centerHorizontal="true"
-                android:id="@+id/nposts"
+
+            <RelativeLayout
+                android:id="@+id/posts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:textAppearance="@style/username"
-                android:textSize="30sp"
-                tools:ignore="RtlSymmetry" />
+                android:gravity="center">
+                <TextView
+
+                    android:id="@+id/no_posts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="152"
+                    android:layout_centerHorizontal="true"
+                    />
 
             <TextView
                 android:id="@+id/text_posts"
+                android:layout_below="@+id/no_posts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
                 android:text="@string/posts"
-                android:layout_below="@+id/nposts"
                 android:textAppearance="@style/username"
-                android:textSize="18sp"
-                tools:ignore="RtlSymmetry" />
+                android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_toEndOf="@+id/posts"
+                android:id="@+id/followers"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/no_followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="586"
+                    />
+            <TextView
+                android:layout_below="@id/no_followers"
+                android:id="@+id/text_followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Followers"
+                android:textAppearance="@style/username"
+                android:textSize="15sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/followers"
+                android:layout_width="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/no_following"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="269"
+                    />
+            <TextView
+                android:id="@+id/text_following"
+                android:layout_below="@+id/no_following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Following"
+                android:textAppearance="@style/username"
+                android:textSize="15sp" />
+
+            </RelativeLayout>
 
 
         </RelativeLayout>
@@ -98,6 +162,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/user_info1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_info">
@@ -110,8 +175,7 @@
             android:layout_alignParentStart="true"
             android:text="@string/full_name"
             android:textAppearance="@style/username"
-            android:textSize="25sp"
-            android:textStyle="bold"
+            android:textSize="18sp"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -124,7 +188,7 @@
             android:text="@string/bio"
             android:layout_marginStart="20dp"
             android:textAppearance="@style/username"
-            android:textSize="15sp"
+            android:textSize="14sp"
             tools:ignore="RtlSymmetry" />
 
         <Button
@@ -138,9 +202,19 @@
             android:background="@drawable/edit_profile"
 
             android:text="edit profile"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
+
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingHorizontal="10dp"
+        android:id="@+id/post_recycler"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/user_info1"></androidx.recyclerview.widget.RecyclerView>
+
 
 </RelativeLayout>
