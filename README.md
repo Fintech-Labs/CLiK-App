@@ -20,7 +20,7 @@ Messages celebrates the spirit of India making it possible for you to chat in mo
 
 ### :fire: Post stories that vanish after 24 hours 
 
-Remembering Mahatma Gandhi's freedom for struggle on Independence Day? Post a story and pay your respects to the freedom fighters :india:
+Remembering Mahatma Gandhi's freedom for struggle on Independence Day? Post a story and pay your respects to the freedom fighters :triangular_flag_on_post:
 
 < Insert story with MG screenshot mockup >
 
