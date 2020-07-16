@@ -91,7 +91,9 @@
                     android:id="@+id/no_posts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="152"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
                     android:layout_centerHorizontal="true"
                     />
 
@@ -118,7 +120,9 @@
                     android:id="@+id/no_followers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="586"
+                    android:text="0"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
                     />
             <TextView
                 android:layout_below="@id/no_followers"
@@ -143,7 +147,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="269"
+                    android:text="0"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
                     />
             <TextView
                 android:id="@+id/text_following"

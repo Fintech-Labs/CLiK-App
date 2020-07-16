@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                             .child("following").child(profileid).removeValue();
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
-                            .child("folllowers").child(firebaseUser.getUid()).removeValue();
+                            .child("followers").child(firebaseUser.getUid()).removeValue();
                 }
             }
         });
