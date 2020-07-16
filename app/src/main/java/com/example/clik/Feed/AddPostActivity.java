@@ -286,20 +286,21 @@ public class AddPostActivity extends AppCompatActivity {
 
                 }
 
-            } else if (data.getData() != null) {
+            } if (data.getData() != null) {
                 Uri fileUri = data.getData();
                 uploadSingleImage(fileUri);
                 pd2.dismiss();
 
             }
-
         }
-
         if(resultCode == RESULT_OK && requestCode == CAMERA_CODE){
             File f = new File(currentPhotoPath);
             assert data != null;
             Uri ImageUri = Uri.fromFile(f);
             uploadSingleImage(ImageUri);
+            pd2.dismiss();
+        }
+        if(data == null){
             pd2.dismiss();
         }
     }

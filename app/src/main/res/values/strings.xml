@@ -2,7 +2,7 @@
     <string name="app_name">CLiK</string>
     <string name="feed">Feed</string>
     <string name="friends">Friends</string>
-    <string name="noti">Notification</string>
+    <string name="search">Search</string>
     <string name="chat">Chat</string>
     <string name="setting">Setting</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -37,4 +37,8 @@
 
     <string name="slide_4_title">Vayam Rakshamah</string>
     <string name="slide_4_desc">We protect your data with the highest security standards.</string>
+    <string name="followers">Folloewrs</string>
+    <string name="follow">Follow</string>
+    <string name="add_post_photos_here">Add Post and Photoes Here</string>
+    <string name="logout">Logout</string>
 </resources>

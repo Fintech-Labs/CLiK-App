@@ -40,15 +40,11 @@ public class MainActivity extends AppCompatActivity {
                             sFragment = new FeedFragment();
                             break;
 
-                        case R.id.nav_friends:
-                            sFragment = new FriendsFragment();
-                            break;
-
                         case R.id.nav_chat:
                             sFragment = new ChatFragment();
                             break;
 
-                        case R.id.nav_noti:
+                        case R.id.nav_search:
                             sFragment = new NotiFragment();
                             break;
 

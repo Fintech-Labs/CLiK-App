@@ -10,14 +10,9 @@
             android:title="@string/feed" />
 
         <item
-            android:id="@+id/nav_friends"
-            android:icon="@drawable/ic_friends"
-            android:title="@string/friends" />
-
-        <item
-            android:id="@+id/nav_noti"
-            android:icon="@drawable/ic_notification"
-            android:title="@string/noti" />
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search" />
 
         <item
             android:id="@+id/nav_chat"

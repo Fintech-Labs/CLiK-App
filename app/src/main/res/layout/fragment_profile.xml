@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar2"
@@ -55,18 +55,17 @@
         android:paddingBottom="20dp">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/profile_pic1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:cardCornerRadius="40dp"
             android:layout_centerVertical="true"
-            android:id="@+id/profile_pic1">
+            android:layout_marginStart="20dp"
+            app:cardCornerRadius="40dp">
 
-        <ImageView
-            android:id="@+id/profile_pic"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-             />
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -75,10 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
             android:layout_toEndOf="@+id/profile_pic1"
-            >
-
+            android:gravity="center">
 
 
             <RelativeLayout
@@ -86,79 +83,69 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center">
-                <TextView
 
+                <TextView
                     android:id="@+id/no_posts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:layout_centerHorizontal="true"
-                    />
+                    android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:id="@+id/text_posts"
-                android:layout_below="@+id/no_posts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/posts"
-                android:textAppearance="@style/username"
-                android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/text_posts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_posts"
+                    android:text="@string/posts"
+                    android:textAppearance="@style/username"
+                    android:textSize="15sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_toEndOf="@+id/posts"
                 android:id="@+id/followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_width="wrap_content">
+                android:layout_toEndOf="@+id/posts"
+                android:gravity="center">
 
                 <TextView
-                    android:layout_centerHorizontal="true"
                     android:id="@+id/no_followers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    />
-            <TextView
-                android:layout_below="@id/no_followers"
-                android:id="@+id/text_followers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Followers"
-                android:textAppearance="@style/username"
-                android:textSize="15sp" />
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/text_followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/no_followers"
+                    android:text="@string/followers"
+                    android:textAppearance="@style/username"
+                    android:textSize="15sp" />
             </RelativeLayout>
 
 
             <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@+id/followers"
-                android:layout_width="wrap_content"
-                >
+                android:gravity="center">
+
                 <TextView
                     android:id="@+id/no_following"
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    />
-            <TextView
-                android:id="@+id/text_following"
-                android:layout_below="@+id/no_following"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Following"
-                android:textAppearance="@style/username"
-                android:textSize="15sp" />
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/text_following"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_following"
+                    android:text="Following"
+                    android:textAppearance="@style/username"
+                    android:textSize="15sp" />
 
             </RelativeLayout>
 
@@ -177,8 +164,8 @@
             android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
             android:text="@string/full_name"
             android:textAppearance="@style/username"
             android:textSize="18sp"
@@ -190,9 +177,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/full_name"
             android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="@string/bio"
-            android:layout_marginStart="20dp"
             android:textAppearance="@style/username"
             android:textSize="14sp"
             tools:ignore="RtlSymmetry" />
@@ -213,14 +200,5 @@
 
 
     </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingHorizontal="10dp"
-        android:id="@+id/post_recycler"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/user_info1"></androidx.recyclerview.widget.RecyclerView>
-
 
 </RelativeLayout>
