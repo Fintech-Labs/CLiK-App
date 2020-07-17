@@ -43,4 +43,6 @@
     <string name="logout">Logout</string>
     <string name="search_here">Search Here...</string>
     <string name="edit_profile">edit profile</string>
+    <string name="likes">Likes</string>
+    <string name="comments">Comments</string>
 </resources>

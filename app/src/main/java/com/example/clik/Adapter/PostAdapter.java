@@ -219,7 +219,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     private void noLikes(String postId, final TextView noOfLikes) {
-        FirebaseDatabase.getInstance().getReference().child("likes").child(postId).addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("likes").child(postId);
+        ref.keepSynced(true);
+
+        ref.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -234,19 +237,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     private void getComments(String postId, final TextView noOfComments) {
-        FirebaseDatabase.getInstance().getReference().child("Comments").child(postId).
-                addValueEventListener(new ValueEventListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        noOfComments.setText(dataSnapshot.getChildrenCount() + " ");
-                    }
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("comments").child(postId);
+        ref.keepSynced(true);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        ref.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                noOfComments.setText(dataSnapshot.getChildrenCount() + " ");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void isLiked(String postId, final ImageView imageView) {
@@ -284,7 +289,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView noOfComments;
         SocialTextView description;
 
-        public ImageView postImage;
         public DoubleTapLikeView doubleTapLikeView;
 
         public ViewHolder(@NonNull View itemView) {

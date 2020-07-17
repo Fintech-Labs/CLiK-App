@@ -19,11 +19,11 @@ import com.example.clik.Feed.AddPostActivity;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
@@ -43,13 +43,11 @@ public class FeedFragment extends Fragment {
 
     private FirebaseUser fuser;
 
-//    private List<String> friendsList;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v =  inflater.inflate(R.layout.fragment_feed, container, false);
+        View v = inflater.inflate(R.layout.fragment_feed, container, false);
 
         add = v.findViewById(R.id.add_image);
         user_pic = v.findViewById(R.id.profile_pic);
@@ -104,18 +102,38 @@ public class FeedFragment extends Fragment {
         pd.setMessage("Please Wait");
         pd.show();
 
-        FirebaseDatabase.getInstance().getReference().child("posts").addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("posts");
+        ref.keepSynced(true);
+
+        final DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference().child("Follow").child(fuser.getUid()).child("following");
+        ref1.keepSynced(true);
+
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList = new ArrayList<>();
-                for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                    Post post = snapshot1.getValue(Post.class);
-                    postList.add(post);
-                }
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    final Post post = snapshot1.getValue(Post.class);
+                    ref1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            assert post != null;
+                            if (snapshot.child(post.getPublisher()).exists()) {
+                                postList.add(post);
+                            }
+                            postAdapter = new PostAdapter(getContext(), postList);
+                            recyclerViewPosts.setAdapter(postAdapter);
+                            pd.dismiss();
+                        }
 
-                postAdapter = new PostAdapter(getContext(), postList);
-                recyclerViewPosts.setAdapter(postAdapter);
-                pd.dismiss();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
+                        }
+                    });
+
+                }
             }
 
             @Override
