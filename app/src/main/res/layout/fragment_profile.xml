@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/no_followers"
-                    android:text="@string/followers"
+                    android:text="Followers"
                     android:textAppearance="@style/username"
                     android:textSize="15sp" />
             </RelativeLayout>
