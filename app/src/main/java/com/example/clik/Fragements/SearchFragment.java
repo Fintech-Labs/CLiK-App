@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotiFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;

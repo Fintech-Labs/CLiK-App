@@ -14,7 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clik.Adapter.PhotoAdapter;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
@@ -32,6 +35,9 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
@@ -49,7 +55,11 @@ public class ProfileFragment extends Fragment {
     private ImageView more;
 
     private FirebaseUser firebaseUser;
-    private int posts = 0;
+    private DatabaseReference ref1;
+
+    private List<Post> myPhotoList;
+    private PhotoAdapter photoAdpatar;
+    private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,9 +80,15 @@ public class ProfileFragment extends Fragment {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        assert firebaseUser != null;
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
-        ref.keepSynced(true);
+        myPhotoList = new ArrayList<>();
+        recyclerView = v.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
+        photoAdpatar = new PhotoAdapter(getContext(), myPhotoList, firebaseUser.getUid());
+        recyclerView.setAdapter(photoAdpatar);
+
+        ref1 = FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid());
 
         more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +99,7 @@ public class ProfileFragment extends Fragment {
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
+                        switch (item.getItemId()) {
                             case R.id.logout:
                                 FirebaseAuth.getInstance().signOut();
                                 startActivity(new Intent(getContext(), LoginActivity.class));
@@ -98,6 +114,87 @@ public class ProfileFragment extends Fragment {
                 popup.show();
             }
         });
+
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), EditProfile2Activity.class));
+            }
+        });
+
+        getUserData();
+        setNoOfFollowers(noOffollowers);
+        setNoOfFollowing(noOffollowing);
+        getPostData(noOfPosts);
+
+        return v;
+    }
+
+    private void getPostData(final TextView noOfPosts) {
+        DatabaseReference ref5 = FirebaseDatabase.getInstance().getReference().child("posts");
+        ref5.keepSynced(true);
+
+        ref5.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                myPhotoList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Post post = snapshot.getValue(Post.class);
+                    assert post != null;
+                    if (post.getPublisher().equals(firebaseUser.getUid())) {
+                        myPhotoList.add(post);
+                    }
+                }
+                noOfPosts.setText(String.valueOf(myPhotoList.size()));
+                Collections.reverse(myPhotoList);
+                photoAdpatar.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setNoOfFollowing(final TextView noOffollowing) {
+        final DatabaseReference ref3 = ref1.child("following");
+        ref3.keepSynced(true);
+
+        ref3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                noOffollowing.setText(snapshot.getChildrenCount() + " ");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setNoOfFollowers(final TextView noOffollowers) {
+        final DatabaseReference ref2 = ref1.child("followers");
+        ref2.keepSynced(true);
+
+        ref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                noOffollowers.setText(snapshot.getChildrenCount() + " ");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getUserData() {
+        assert firebaseUser != null;
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
+        ref.keepSynced(true);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,72 +221,8 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        editProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), EditProfile2Activity.class));
-            }
-        });
-
-        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid());
-
-        final DatabaseReference ref2 = ref1.child("followers");
-        ref2.keepSynced(true);
-
-        ref2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                noOffollowers.setText(snapshot.getChildrenCount() + " ");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        final DatabaseReference ref3 = ref1.child("following");
-        ref3.keepSynced(true);
-
-        ref3.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                noOffollowing.setText(snapshot.getChildrenCount() + " ");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference().child("posts");
-        ref4.keepSynced(true);
-
-        ref4.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Post post = snapshot1.getValue(Post.class);
-                    assert post != null;
-                    if (post.getPublisher().equals(firebaseUser.getUid())) {
-                        posts++;
-                    }
-                }
-
-                noOfPosts.setText(posts + "");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        return v;
     }
 }

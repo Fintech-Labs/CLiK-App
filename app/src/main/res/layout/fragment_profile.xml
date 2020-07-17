@@ -193,12 +193,18 @@
             android:layout_marginTop="22dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/edit_profile"
-
-            android:text="edit profile"
+            android:text="@string/edit_profile"
             android:textSize="13sp"
             android:textStyle="bold" />
 
 
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/user_info1"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"/>
 
 </RelativeLayout>

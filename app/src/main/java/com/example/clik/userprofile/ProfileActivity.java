@@ -10,7 +10,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clik.Adapter.PhotoAdapter;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
@@ -24,6 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -44,6 +51,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     private int posts = 0;
 
+    private RecyclerView recyclerView_profile;
+    private List<Post> myPhotoList;
+    private PhotoAdapter photoAdpatar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +73,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         follow = findViewById(R.id.follow);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        myPhotoList = new ArrayList<>();
+        recyclerView_profile = findViewById(R.id.recycler_view_profile);
+
+        recyclerView_profile.setHasFixedSize(true);
+        recyclerView_profile.setLayoutManager(new GridLayoutManager(ProfileActivity.this, 3));
+
+        photoAdpatar = new PhotoAdapter(ProfileActivity.this, myPhotoList, publisherId);
+        recyclerView_profile.setAdapter(photoAdpatar);
+
 
         getUserData();
 
@@ -91,9 +112,37 @@ public class ProfileActivity extends AppCompatActivity {
         setNoOfPosts(noOfPosts);
         setnoOFFollowers(noOFFollowers);
         setnoOFFollowing(noOfFollowing);
+        getPost();
 
         pd.dismiss();
 
+    }
+
+    private void getPost() {
+        DatabaseReference ref5 = FirebaseDatabase.getInstance().getReference().child("posts");
+        ref5.keepSynced(true);
+
+        ref5.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                myPhotoList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+                    assert post != null;
+                    if (post.getPublisher().equals(publisherId)){
+                        myPhotoList.add(post);
+                    }
+                }
+                noOfPosts.setText(String.valueOf(myPhotoList.size()));
+                Collections.reverse(myPhotoList);
+                photoAdpatar.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProfileActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setnoOFFollowing(final TextView noOfFollowing) {

@@ -14,12 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.brouding.doubletaplikeview.DoubleTapLikeView;
 import com.example.clik.Feed.CommentActivity;
 import com.example.clik.Model.Post;
-import com.example.clik.Model.PostImages;
 import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.example.clik.userprofile.ProfileActivity;
@@ -31,12 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
-import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -44,10 +40,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private Context mContext;
     private List<Post> mPosts;
 
-    private List<PostImages> mImages;
-
     private FirebaseUser fuser;
-    private SliderAdapterExample sliderAdpter;
 
     public PostAdapter(Context mContext, List<Post> mPosts) {
         this.mContext = mContext;
@@ -73,8 +66,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         getComments(post.getPostId(), holder.noOfComments);
 
         holder.description.setText(post.getDiscription());
+        Picasso.get().load(post.getImageUri()).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).into(holder.doubleTapLikeView.imageView, new Callback() {
+            @Override
+            public void onSuccess() {
 
-        mImages = new ArrayList<>();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Picasso.get().load(post.getImageUri()).fit().centerCrop().into(holder.doubleTapLikeView.imageView);
+            }
+        });
 
         final ProgressDialog pd = new ProgressDialog(mContext);
         pd.setMessage("wait");
@@ -101,31 +103,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         Picasso.get().load(user.getProfileUri()).into(holder.imageProfile);
                     }
                 });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_SHORT).show();
-                pd.dismiss();
-            }
-        });
-
-        sliderAdpter = new SliderAdapterExample(mContext);
-
-        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference().child("postImages").child(post.getPostId());
-        ref2.keepSynced(true);
-
-        ref2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mImages.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    PostImages postImages = snapshot1.getValue(PostImages.class);
-                    mImages.add(postImages);
-                    sliderAdpter.addItem(postImages);
-                }
-                holder.sliderView.setSliderAdapter(sliderAdpter);
-
             }
 
             @Override
@@ -256,11 +233,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
     }
 
-    @Override
-    public void onViewRecycled(@NonNull ViewHolder holder) {
-        super.onViewRecycled(holder);
-    }
-
     private void getComments(String postId, final TextView noOfComments) {
         FirebaseDatabase.getInstance().getReference().child("Comments").child(postId).
                 addValueEventListener(new ValueEventListener() {
@@ -271,8 +243,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(mContext, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -312,14 +284,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView noOfComments;
         SocialTextView description;
 
-        private SliderView sliderView;
-        private DoubleTapLikeView doubleTapLikeView;
+        public ImageView postImage;
+        public DoubleTapLikeView doubleTapLikeView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             doubleTapLikeView = itemView.findViewById(R.id.layout_double_tap_like);
-            sliderView = itemView.findViewById(R.id.imageSlider);
             imageProfile = itemView.findViewById(R.id.profile_pic);
             like = itemView.findViewById(R.id.like);
             comment = itemView.findViewById(R.id.comment);
@@ -328,8 +299,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             noOfLikes = itemView.findViewById(R.id.no_likes);
             noOfComments = itemView.findViewById(R.id.no_comments);
             description = itemView.findViewById(R.id.post_description);
-
-
         }
     }
 }

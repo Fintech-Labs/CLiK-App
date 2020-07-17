@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-
+    android:layout_height="match_parent">
 
 
     <EditText
@@ -14,18 +11,20 @@
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="26dp"
         android:background="@drawable/back"
-        android:drawableLeft="@drawable/ic_search"
-        android:hint=" Search Here..."
-        android:paddingLeft="15dp" />
+        android:drawableStart="@drawable/ic_search"
+        android:hint="@string/search_here"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:inputType="textAutoComplete" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="1dp"
-        android:layout_width="match_parent"
         android:id="@+id/recyclerView1"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/search_bar"
+        android:layout_marginTop="1dp"
         android:paddingHorizontal="20dp"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp" />
 
 
 </RelativeLayout>

@@ -56,14 +56,6 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_black" />
-
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
@@ -74,32 +66,12 @@
                 android:id="@+id/layout_double_tap_like"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
-                android:elevation="5dp"
+                android:elevation="15dp"
                 app:adjustViewBounds="true"
                 app:disableAnimation="false"
                 app:doubleTapIn="250"
                 app:icon="@drawable/ic_heart"
-                app:scaleType="fitXY">
-
-                <com.smarteist.autoimageslider.SliderView
-                    android:id="@+id/imageSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp"
-                    app:sliderIndicatorGravity="center_horizontal|bottom"
-                    app:sliderIndicatorMargin="15dp"
-                    app:sliderIndicatorOrientation="horizontal"
-                    app:sliderIndicatorPadding="3dp"
-                    app:sliderIndicatorRadius="2dp"
-                    app:sliderIndicatorSelectedColor="#5A5A5A"
-                    app:sliderIndicatorUnselectedColor="#FFF"/>
-
-
-            </com.brouding.doubletaplikeview.DoubleTapLikeView>
-
+                app:scaleType="centerCrop"/>
 
         </androidx.cardview.widget.CardView>
 

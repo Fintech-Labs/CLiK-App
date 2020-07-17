@@ -39,7 +39,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="1.6"
-                    android:src="@drawable/ic_add"/>
+                    android:src="@drawable/ic_add"
+                    android:contentDescription="@string/todo" />
 
             </LinearLayout>
 

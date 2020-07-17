@@ -62,7 +62,7 @@ public class AddPostActivity extends AppCompatActivity {
 
     private List<String> fileNameList;
     private List<String> fileDoneList;
-    private List<String> downloadUri;
+    private String downloadUri;
 
     private StorageReference mStorage;
     private FirebaseUser fuser;
@@ -85,8 +85,6 @@ public class AddPostActivity extends AppCompatActivity {
 
         fileNameList = new ArrayList<>();
         fileDoneList = new ArrayList<>();
-        downloadUri = new ArrayList<>();
-        downloadUri.clear();
         fileNameList.clear();
         fileDoneList.clear();
 
@@ -135,7 +133,7 @@ public class AddPostActivity extends AppCompatActivity {
                     } else {
                         dispatchTakePictureIntent();
                     }
-                }else{
+                } else {
                     Toast.makeText(AddPostActivity.this, "Device Do Not Have Camera", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -149,10 +147,9 @@ public class AddPostActivity extends AppCompatActivity {
 
     private boolean allUpload() {
         boolean isComplete = false;
-        if(fileDoneList.size() == 1){
+        if (fileDoneList.size() == 1) {
             isComplete = true;
-        }
-        else if (totalItemsSelected == fileDoneList.size()) {
+        } else if (totalItemsSelected == fileDoneList.size()) {
             isComplete = true;
         }
         return isComplete;
@@ -171,18 +168,12 @@ public class AddPostActivity extends AppCompatActivity {
         map.put("discription", discription.getText().toString().trim());
         map.put("publisher", fuser.getUid());
         map.put("postId", postId);
+        map.put("ImageUri", downloadUri);
 
-        assert postId != null;
         ref.child(postId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    for (int i = 0; i < downloadUri.size(); i++) {
-                        HashMap<String, String> map2 = new HashMap<>();
-                        map2.put("imageUri", downloadUri.get(i));
-                        FirebaseDatabase.getInstance().getReference().child("postImages").child(postId).push().setValue(map2);
-                        map2.clear();
-                    }
                     addHashTags();
                     pd.dismiss();
                     Toast.makeText(AddPostActivity.this, "Post Added Successfully", Toast.LENGTH_SHORT).show();
@@ -214,13 +205,13 @@ public class AddPostActivity extends AppCompatActivity {
     private void pickImageFromGallery() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), IMAGE_PICK_CODE);
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSION_CODE_GALLERY:
@@ -246,61 +237,22 @@ public class AddPostActivity extends AppCompatActivity {
         pd2.show();
         if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK) {
             assert data != null;
-            if (data.getClipData() != null) {
-                totalItemsSelected = data.getClipData().getItemCount();
-
-                for (int i = 0; i < totalItemsSelected; i++) {
-
-                    Uri fileUri = data.getClipData().getItemAt(i).getUri();
-
-                    String fileName = System.currentTimeMillis() + "." + getFileExtension(fileUri);
-
-                    fileNameList.add(fileName);
-                    fileDoneList.add("uploading");
-
-                    final StorageReference fileToUpload = mStorage.child(fileName);
-
-                    final int finalI = i;
-
-                    fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-
-                            fileToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-
-                                    downloadUri.add(uri.toString());
-
-                                    fileDoneList.remove(finalI);
-                                    fileDoneList.add(finalI, "done");
-
-                                    uploadListAdpater.notifyDataSetChanged();
-
-                                    pd2.dismiss();
-                                }
-                            });
-                        }
-                    });
-
-                }
-
-            } if (data.getData() != null) {
+            if (data.getData() != null) {
                 Uri fileUri = data.getData();
                 uploadSingleImage(fileUri);
                 pd2.dismiss();
 
             }
         }
-        if(resultCode == RESULT_OK && requestCode == CAMERA_CODE){
+        if (resultCode == RESULT_OK && requestCode == CAMERA_CODE) {
             File f = new File(currentPhotoPath);
             assert data != null;
             Uri ImageUri = Uri.fromFile(f);
             uploadSingleImage(ImageUri);
             pd2.dismiss();
         }
-        if(data == null){
+        if (data == null) {
+            Toast.makeText(AddPostActivity.this, "Nothig is selected", Toast.LENGTH_SHORT).show();
             pd2.dismiss();
         }
     }
@@ -329,7 +281,7 @@ public class AddPostActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-
+                Toast.makeText(AddPostActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
@@ -359,7 +311,7 @@ public class AddPostActivity extends AppCompatActivity {
                 fileToUpload.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        downloadUri.add(uri.toString());
+                        downloadUri = uri.toString();
                         fileDoneList.clear();
                         fileDoneList.add("done");
 

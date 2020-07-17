@@ -41,4 +41,6 @@
     <string name="follow">Follow</string>
     <string name="add_post_photos_here">Add Post and Photoes Here</string>
     <string name="logout">Logout</string>
+    <string name="search_here">Search Here...</string>
+    <string name="edit_profile">edit profile</string>
 </resources>
