@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
 
     <LinearLayout
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:orientation="horizontal"
     android:id="@+id/top1"
-    android:weightSum="10">
+    android:weightSum="10"
+        android:gravity="center">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_pic"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
+        android:layout_height="42dp"
+        android:layout_margin="5dp"
         android:layout_weight="1.6" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="6.8"
-        android:gravity="center_vertical"
-        android:text="@string/add_post_photos_here"
-        android:textSize="15sp" />
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_weight="7.4"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:background="@drawable/back"
+            android:drawableStart="@drawable/ic_search"
+            android:hint=" Search User..."
+            android:textSize="15sp"
+            android:paddingStart="15dp"
+            android:paddingEnd="5dp"
+            android:inputType="textAutoComplete" />
 
     <ImageView
         android:id="@+id/add_image"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:layout_margin="10dp"
-        android:layout_weight="1.6"
+        android:layout_weight="1"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/todo" />
 
@@ -51,7 +60,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#D3D3D3" />
+                android:background="#FFFFFF" />
 
         </LinearLayout>
 

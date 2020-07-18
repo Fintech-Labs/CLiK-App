@@ -19,7 +19,7 @@
         android:layout_height="40dp"
         android:layout_margin="10dp"
         android:gravity="center_vertical"
-        android:text="jvnn vcj"/>
+        android:text="image_name"/>
 
     <ImageView
         android:id="@+id/check"

@@ -6,23 +6,23 @@
 
         <item
             android:id="@+id/nav_feed"
-            android:icon="@drawable/ic_home"
-            android:title="@string/feed" />
+            android:icon="@drawable/ic_home2"
+            android:title="Home" />
 
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
-            android:title="@string/search" />
+            android:title="Search" />
 
         <item
             android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_chat"
-            android:title="@string/chat" />
+            android:icon="@drawable/ic_chat2"
+            android:title="Chat" />
 
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/setting" />
+            android:icon="@drawable/ic_user2"
+            android:title="Profile" />
 
     </group>
 </menu>
