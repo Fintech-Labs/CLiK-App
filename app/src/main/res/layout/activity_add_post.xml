@@ -51,10 +51,10 @@
         android:layout_below="@+id/bar"
         android:id="@+id/description"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="180dp"
         android:layout_margin="10dp"
         android:gravity="top|start"
-        android:hint="@string/add_description_hashtag"
+        android:hint="Write a captain..."
         android:maxLines="5"
         app:hashtagColor="@color/colorPrimary"
         app:socialFlags="hashtag|mention"
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="@string/add_a_image"
+                android:text="Open Gallery"
                 android:layout_margin="10dp"
                 android:textSize="20sp"/>
 
@@ -106,7 +106,7 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_camera"
+                android:src="@drawable/ic_photo"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/todo" />
 

@@ -8,14 +8,14 @@
     <androidx.cardview.widget.CardView
         android:layout_centerVertical="true"
         android:id="@+id/round"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
     <ImageView
         android:id="@+id/profile_pic"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         />
     </androidx.cardview.widget.CardView>
 
@@ -33,20 +33,23 @@
             android:layout_weight="0.35"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:textSize="20sp"/>
+            android:text="Full Name"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/comment"
             android:layout_width="match_parent"
+            android:text="comment"
             android:layout_height="wrap_content"
-            android:textSize="15sp"/>
+            android:textSize="12sp"/>
     </LinearLayout>
 
     <ImageView
         android:layout_centerVertical="true"
         android:id="@+id/favorite"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_margin="10dp"
         android:paddingTop="7dp"
         android:layout_alignParentEnd="true"

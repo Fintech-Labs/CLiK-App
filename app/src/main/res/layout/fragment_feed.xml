@@ -3,7 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/top1"
+    android:weightSum="10">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_pic"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1.6" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6.8"
+        android:gravity="center_vertical"
+        android:text="@string/add_post_photos_here"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/add_image"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:layout_weight="1.6"
+        android:src="@drawable/ic_add"
+        android:contentDescription="@string/todo" />
+
+</LinearLayout>
     <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/top1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -12,37 +45,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_pic"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1.6" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6.8"
-                    android:gravity="center_vertical"
-                    android:text="@string/add_post_photos_here"
-                    android:textSize="22sp" />
-
-                <ImageView
-                    android:id="@+id/add_image"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1.6"
-                    android:src="@drawable/ic_add"
-                    android:contentDescription="@string/todo" />
-
-            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

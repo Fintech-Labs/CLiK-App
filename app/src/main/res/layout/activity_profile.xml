@@ -50,24 +50,23 @@
             android:id="@+id/profile_pic1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            app:cardCornerRadius="40dp">
+            app:cardCornerRadius="75dp"
+            android:layout_centerHorizontal="true">
 
             <ImageView
                 android:id="@+id/profile_pic"
-                android:layout_width="80dp"
-                android:layout_height="80dp" />
+                android:layout_width="150dp"
+                android:layout_height="150dp" />
 
         </androidx.cardview.widget.CardView>
 
         <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/profile_pic1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/profile_pic1"
-            android:gravity="center">
+            android:layout_height="wrap_content">
 
 
             <RelativeLayout
@@ -80,6 +79,7 @@
                     android:id="@+id/no_posts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="35sp"
                     android:layout_centerHorizontal="true" />
 
                 <TextView
@@ -89,14 +89,14 @@
                     android:layout_below="@+id/no_posts"
                     android:text="@string/posts"
                     android:textAppearance="@style/username"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/followers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="40dp"
                 android:layout_toEndOf="@+id/posts"
                 android:gravity="center">
 
@@ -104,23 +104,24 @@
                     android:id="@+id/no_followers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textSize="35sp"/>
 
                 <TextView
                     android:id="@+id/text_followers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/no_followers"
-                    android:text="@string/followers"
+                    android:text="Followers"
                     android:textAppearance="@style/username"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
             </RelativeLayout>
 
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="40dp"
                 android:layout_toEndOf="@+id/followers"
                 android:gravity="center">
 
@@ -128,7 +129,8 @@
                     android:id="@+id/no_following"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:textSize="35sp"/>
 
                 <TextView
                     android:id="@+id/text_following"
@@ -137,7 +139,7 @@
                     android:layout_below="@+id/no_following"
                     android:text="Following"
                     android:textAppearance="@style/username"
-                    android:textSize="15sp" />
+                    android:textSize="18sp" />
 
             </RelativeLayout>
 
@@ -181,9 +183,8 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_below="@+id/bio"
-            android:layout_marginStart="20dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="22dp"
-            android:layout_marginEnd="20dp"
             android:background="@drawable/edit_profile"
             android:text="@string/follow"
             android:textSize="13sp"
