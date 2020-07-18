@@ -30,7 +30,7 @@ public class ChatFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),ChatActivity.class));
+                startActivity(new Intent(getContext(),SearchActivity_ChatFragment.class));
             }
         });
 

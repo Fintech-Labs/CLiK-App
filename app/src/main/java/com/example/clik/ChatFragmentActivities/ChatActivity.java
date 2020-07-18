@@ -2,6 +2,8 @@ package com.example.clik.ChatFragmentActivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,9 +39,13 @@ public class ChatActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
+    RecyclerView recyclerView;
 
     ImageButton btn_send;
     EditText text_send;
+
+    MessageAdapterChat messageAdapterChat;
+    List<Chat> chatList;
 
     Intent intent;
 
@@ -67,6 +75,12 @@ public class ChatActivity extends AppCompatActivity {
         username=findViewById(R.id.username);
         btn_send=findViewById(R.id.btn_send);
         text_send=findViewById(R.id.text_send);
+        recyclerView=findViewById(R.id.recyclerview);
+
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         intent=getIntent();
         final String userId=intent.getStringExtra("userId");
@@ -95,6 +109,8 @@ public class ChatActivity extends AppCompatActivity {
                 User user=snapshot.getValue(User.class);
                 username.setText(user.getName());
                 Picasso.get().load(user.getProfileUri()).into(profile_image);
+
+                readMessages(firebaseUser.getUid(),userId,user.getProfileUri());
             }
 
             @Override
@@ -116,5 +132,33 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("message",message);
 
         reference.child("Chats").push().setValue(hashMap);
+    }
+
+    private void readMessages(final String myId, final String userId, final String imageUrl){
+        chatList=new ArrayList<>();
+
+        reference=FirebaseDatabase.getInstance().getReference("Chats");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                chatList.clear();
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat=snapshot.getValue(Chat.class);
+
+                    if ((chat.getReceiver().equals(myId) && chat.getSender().equals(userId)) ||
+                            (chat.getSender().equals(myId) && chat.getReceiver().equals(userId))){
+                        chatList.add(chat);
+                    }
+
+                    messageAdapterChat=new MessageAdapterChat(ChatActivity.this,chatList,imageUrl);
+                    recyclerView.setAdapter(messageAdapterChat);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
