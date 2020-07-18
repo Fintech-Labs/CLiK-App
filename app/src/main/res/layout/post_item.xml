@@ -33,7 +33,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="8dp"
                 android:layout_toEndOf="@+id/profile_pic"
-                android:gravity="center_vertical"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -48,7 +48,6 @@
                     android:id="@+id/bio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:textAppearance="@style/username"
                     android:textSize="14sp" />
 
@@ -59,8 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_more"
+                android:layout_marginEnd="20dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more_horizontal"
                 android:contentDescription="@string/todo" />
 
         </RelativeLayout>

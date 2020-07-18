@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +44,7 @@ public class FeedFragment extends Fragment {
     private RecyclerView recyclerViewPosts;
     private PostAdapter postAdapter;
     private List<Post> postList;
+    private Button search;
 
     private FirebaseUser fuser;
 
@@ -51,6 +56,7 @@ public class FeedFragment extends Fragment {
 
         add = v.findViewById(R.id.add_image);
         user_pic = v.findViewById(R.id.profile_pic);
+        search = v.findViewById(R.id.search_bar2);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +64,21 @@ public class FeedFragment extends Fragment {
                 startActivity(new Intent(getContext(), AddPostActivity.class));
             }
         });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new SearchFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragement_container, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+
+
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 

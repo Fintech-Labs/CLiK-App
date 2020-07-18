@@ -5,6 +5,7 @@
     android:background="#ffffff">
 
     <LinearLayout
+        android:background="#ffffff"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
     android:layout_width="match_parent"
@@ -21,18 +22,18 @@
         android:layout_margin="5dp"
         android:layout_weight="1.6" />
 
-        <EditText
-            android:id="@+id/search_bar"
-            android:layout_weight="7.4"
+        <Button
+            android:id="@+id/search_bar2"
             android:layout_width="0dp"
-            android:layout_height="34dp"
-            android:background="@drawable/back"
+            android:layout_height="32dp"
+            android:layout_weight="7.4"
+            android:background="@drawable/back_search"
             android:drawableStart="@drawable/ic_search"
-            android:hint=" Search User..."
-            android:textSize="15sp"
+            android:inputType="textAutoComplete"
             android:paddingStart="15dp"
             android:paddingEnd="5dp"
-            android:inputType="textAutoComplete" />
+            android:textAlignment="textStart"
+            android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/add_image"
@@ -40,7 +41,7 @@
         android:layout_height="30dp"
         android:layout_margin="10dp"
         android:layout_weight="1"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/ic_plus_circle"
         android:contentDescription="@string/todo" />
 
 </LinearLayout>

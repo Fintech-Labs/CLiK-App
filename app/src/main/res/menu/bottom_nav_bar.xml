@@ -6,22 +6,22 @@
 
         <item
             android:id="@+id/nav_feed"
-            android:icon="@drawable/ic_home2"
+            android:icon="@drawable/ic_home99"
             android:title="Home" />
 
         <item
             android:id="@+id/nav_search"
-            android:icon="@drawable/ic_search"
+            android:icon="@drawable/ic_search99"
             android:title="Search" />
 
         <item
             android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_chat2"
+            android:icon="@drawable/ic_chat"
             android:title="Chat" />
 
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_user2"
+            android:icon="@drawable/ic_user99"
             android:title="Profile" />
 
     </group>
