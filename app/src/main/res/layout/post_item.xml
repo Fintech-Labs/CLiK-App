@@ -54,6 +54,15 @@
 
             </LinearLayout>
 
+            <ImageView
+                android:id="@+id/post_more"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_more"
+                android:contentDescription="@string/todo" />
+
         </RelativeLayout>
 
         <com.hendraanggrian.appcompat.widget.SocialTextView
