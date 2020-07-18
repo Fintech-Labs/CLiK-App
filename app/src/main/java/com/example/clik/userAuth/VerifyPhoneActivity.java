@@ -2,8 +2,10 @@ package com.example.clik.userAuth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,31 +35,39 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private PinView code1;
 
-
+    private TextView timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
 
-
         code1 = findViewById(R.id.pinView);
         mAuth = FirebaseAuth.getInstance();
         String phonenumber = getIntent().getStringExtra("phonenumber");
         sendVerificationCode(phonenumber);
 
-        code1.setOnPinCompletionListener(new OnPinCompletedListener() {
-            @Override
-            public void onPinCompleted(String entirePin) {
+        timer = findViewById(R.id.timer);
 
+        new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timer.setText("00:" + millisUntilFinished/1000);
+                //here you can have your logic to set text to edittext
             }
-        });
+
+            public void onFinish() {
+                timer.setText("Resending Code");
+            }
+
+        }.start();
+
         findViewById(R.id.verify).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = code1.getText().toString().trim();
+                String code = code1.getText().trim();
                 if (code.isEmpty() || code.length() < 6) {
-                    Toast.makeText(VerifyPhoneActivity.this,"Enter Full Code",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VerifyPhoneActivity.this,"Enter Valid Otp",Toast.LENGTH_SHORT).show();
                     code1.requestFocus();
                 }
                 else{
@@ -70,6 +80,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private void verifyCode(String code) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);
+        finish();
     }
 
     private void signInWithCredential(PhoneAuthCredential credential) {
@@ -120,6 +131,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                     String code = phoneAuthCredential.getSmsCode();
                     if (code != null) {
+                        code1.setText(code);
                         verifyCode(code);
                     }
                 }

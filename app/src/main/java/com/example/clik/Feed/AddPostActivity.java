@@ -85,6 +85,8 @@ public class AddPostActivity extends AppCompatActivity {
 
         fileNameList = new ArrayList<>();
         fileDoneList = new ArrayList<>();
+
+        downloadUri = null;
         fileNameList.clear();
         fileDoneList.clear();
 
@@ -100,12 +102,15 @@ public class AddPostActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (allUpload()) {
-                    uploadPost();
+                if (discription.getText().toString().isEmpty() && downloadUri == null) {
+                    Toast.makeText(AddPostActivity.this, "Post cannot be Empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(AddPostActivity.this, "photos are not uploade till now", Toast.LENGTH_SHORT).show();
+                    if (allUpload()) {
+                        uploadPost();
+                    } else {
+                        Toast.makeText(AddPostActivity.this, "photos are not uploaded till now", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
             }
         });
 

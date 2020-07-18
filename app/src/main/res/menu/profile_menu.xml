@@ -5,8 +5,4 @@
         android:id="@+id/logout"
         android:title="@string/logout" />
 
-    <item
-        android:id="@+id/change_email"
-        android:title="@string/change_email" />
-
 </menu>

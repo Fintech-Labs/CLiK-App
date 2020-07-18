@@ -45,8 +45,6 @@ public class EditProfile2Activity extends AppCompatActivity {
     private ImageView profile_pic;
     private ImageView close;
     private ImageView done;
-    private TextView change_profile;
-    private TextView change_email;
     private EditText name;
     private EditText Bio;
     private DatabaseReference ref;
@@ -61,8 +59,6 @@ public class EditProfile2Activity extends AppCompatActivity {
         profile_pic = findViewById(R.id.profile_pic);
         close = findViewById(R.id.close);
         done = findViewById(R.id.save);
-        change_profile = findViewById(R.id.change_prof);
-        change_email = findViewById(R.id.change_email);
         name = findViewById(R.id.name);
         Bio = findViewById(R.id.bio);
 
@@ -140,20 +136,6 @@ public class EditProfile2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CropImage.activity().setCropShape(CropImageView.CropShape.RECTANGLE).setAspectRatio(1, 1).start(EditProfile2Activity.this);
-            }
-        });
-
-        change_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CropImage.activity().setCropShape(CropImageView.CropShape.RECTANGLE).setAspectRatio(1, 1).start(EditProfile2Activity.this);
-            }
-        });
-
-        change_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EditProfile2Activity.this, SetEmailActivity.class));
             }
         });
     }

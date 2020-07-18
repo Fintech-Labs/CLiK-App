@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -41,11 +43,21 @@ public class EditProfileActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         display_name = findViewById(R.id.display_name);
-        ImageView profile_pic = findViewById(R.id.profile_pic);
+        final ImageView profile_pic = findViewById(R.id.profile_pic);
 
         Button register = findViewById(R.id.register);
 
-        Picasso.get().load(default_pic).into(profile_pic);
+        Picasso.get().load(default_pic).networkPolicy(NetworkPolicy.OFFLINE).into(profile_pic, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Picasso.get().load(default_pic).into(profile_pic);
+            }
+        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,11 +89,13 @@ public class EditProfileActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        Toast.makeText(EditProfileActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
                                     } else {
                                         Toast.makeText(EditProfileActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                     pd.dismiss();
+                                    finish();
                                 }
                             });
                         }
