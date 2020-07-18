@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +18,9 @@ public class CommonFunctions {
     Context context;
     FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
+
+    FirebaseUser firebaseUser;
+    DatabaseReference reference;
 
     public CommonFunctions(Context context) {
         this.context = context;

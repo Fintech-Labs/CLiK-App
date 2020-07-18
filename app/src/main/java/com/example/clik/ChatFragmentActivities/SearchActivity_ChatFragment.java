@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,7 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private UserAdapterChat userAdapterChat;
-    private List<UserChat> userChatList;
+    private List<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity_ChatFragment.this));
 
-        userChatList=new ArrayList<>();
+        userList=new ArrayList<>();
 
     }
 
@@ -52,19 +53,19 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userChatList.clear();
+                userList.clear();
 
                 for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    UserChat userChat=dataSnapshot.getValue(UserChat.class);
+                    User user=dataSnapshot.getValue(User.class);
 
-                    assert userChat != null;
+                    assert user != null;
                     assert firebaseUser != null;
-                    if (!userChat.getId().equals(firebaseUser.getUid())){
-                        userChatList.add(userChat);
+                    if (!user.getuId().equals(firebaseUser.getUid())){
+                        userList.add(user);
                     }
                 }
 
-                userAdapterChat=new UserAdapterChat(SearchActivity_ChatFragment.this,userChatList);
+                userAdapterChat=new UserAdapterChat(SearchActivity_ChatFragment.this,userList);
                 recyclerView.setAdapter(userAdapterChat);
             }
 

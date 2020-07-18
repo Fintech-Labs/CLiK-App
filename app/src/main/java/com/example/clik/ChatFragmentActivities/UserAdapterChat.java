@@ -1,6 +1,7 @@
 package com.example.clik.ChatFragmentActivities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.squareup.picasso.Picasso;
 
@@ -17,9 +19,9 @@ import java.util.List;
 
 public class UserAdapterChat extends RecyclerView.Adapter<UserAdapterChat.ViewHolder>{
     private Context context;
-    private List<UserChat> userChatList;
+    private List<User> userChatList;
 
-    public UserAdapterChat(Context context, List<UserChat> userChatList) {
+    public UserAdapterChat(Context context, List<User> userChatList) {
         this.context = context;
         this.userChatList = userChatList;
     }
@@ -34,9 +36,18 @@ public class UserAdapterChat extends RecyclerView.Adapter<UserAdapterChat.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        UserChat userChat=userChatList.get(position);
-        holder.userName.setText(userChat.getUsername());
-        Picasso.get().load(userChat.getImageURL()).into(holder.profile_image);
+        final User user=userChatList.get(position);
+        holder.userName.setText(user.getName());
+        Picasso.get().load(user.getProfileUri()).into(holder.profile_image);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,ChatActivity.class);
+                intent.putExtra("userId",user.getuId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

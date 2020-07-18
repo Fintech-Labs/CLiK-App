@@ -12,9 +12,9 @@ public class User {
 
     public User(String uId, String bio, String name, String profileUri) {
         this.uId = uId;
-        Bio = bio;
-        Name = name;
-        ProfileUri = profileUri;
+        this.Bio = bio;
+        this.Name = name;
+        this.ProfileUri = profileUri;
     }
 
     public String getuId() {
