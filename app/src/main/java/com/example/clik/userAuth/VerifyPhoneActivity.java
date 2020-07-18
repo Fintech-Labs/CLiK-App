@@ -36,6 +36,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private PinView code1;
 
     private TextView timer;
+    private TextView resend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +49,16 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         sendVerificationCode(phonenumber);
 
         timer = findViewById(R.id.timer);
+        resend = findViewById(R.id.resend);
 
         new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 timer.setText("00:" + millisUntilFinished/1000);
-                //here you can have your logic to set text to edittext
             }
 
             public void onFinish() {
+                resend.setVisibility(View.GONE);
                 timer.setText("Resending Code");
             }
 

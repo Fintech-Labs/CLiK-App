@@ -129,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
                     assert post != null;
-                    if (post.getPublisher().equals(publisherId)){
+                    if (post.getPublisher().equals(publisherId) && post.getImageUri()!=null){
                         myPhotoList.add(post);
                     }
                 }

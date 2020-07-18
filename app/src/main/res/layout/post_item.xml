@@ -56,6 +56,12 @@
 
         </RelativeLayout>
 
+        <com.hendraanggrian.appcompat.widget.SocialTextView
+            android:id="@+id/post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"/>
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -152,11 +158,6 @@
                 android:textSize="14sp" />
 
         </RelativeLayout>
-
-        <com.hendraanggrian.appcompat.widget.SocialTextView
-            android:id="@+id/post_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

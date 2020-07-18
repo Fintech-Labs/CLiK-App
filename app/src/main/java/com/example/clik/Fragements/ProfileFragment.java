@@ -183,32 +183,6 @@ public class ProfileFragment extends Fragment {
         return v;
     }
 
-    private void getFollowing() {
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid()).child("following");
-        ref.keepSynced(true);
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                followingList.clear();
-                for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                    String uId = snapshot1.getValue(String.class);
-                    followingList.add(uId);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-    private void getFolloewrs() {
-    }
-
     private void getPostData(final TextView noOfPosts) {
         DatabaseReference ref5 = FirebaseDatabase.getInstance().getReference().child("posts");
         ref5.keepSynced(true);
@@ -220,7 +194,7 @@ public class ProfileFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Post post = snapshot.getValue(Post.class);
                     assert post != null;
-                    if (post.getPublisher().equals(firebaseUser.getUid())) {
+                    if (post.getPublisher().equals(firebaseUser.getUid()) && post.getImageUri()!=null) {
                         myPhotoList.add(post);
                     }
                 }

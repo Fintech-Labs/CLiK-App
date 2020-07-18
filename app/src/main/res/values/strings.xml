@@ -49,4 +49,5 @@
     <string name="continue1">continue</string>
     <string name="verify_mobile_number">Verify Mobile Number</string>
     <string name="enter">Enter the verification code we just sent to your mobile number.</string>
+    <string name="resending">Code will be Resending in</string>
 </resources>
