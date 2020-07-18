@@ -1,10 +1,13 @@
 package com.example.clik.Adapter;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brouding.doubletaplikeview.DoubleTapLikeView;
@@ -20,6 +24,7 @@ import com.example.clik.Feed.LikeCommentActivity;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
+import com.example.clik.userAuth.LoginActivity;
 import com.example.clik.userprofile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +39,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
@@ -41,6 +47,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<Post> mPosts;
 
     private FirebaseUser fuser;
+    private AlertDialog.Builder ad;
 
     public PostAdapter(Context mContext, List<Post> mPosts) {
         this.mContext = mContext;
@@ -65,7 +72,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         noOfComments(post.getPostId(), holder.noOfComments);
         getComments(post.getPostId(), holder.noOfComments);
 
-        holder.description.setText(post.getDiscription());
+        if (post.getDiscription() == null) {
+            holder.description.setVisibility(View.GONE);
+        } else {
+            holder.description.setText(post.getDiscription());
+        }
 
         if (post.getImageUri() != null) {
             Picasso.get().load(post.getImageUri()).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).into(holder.doubleTapLikeView.imageView, new Callback() {
@@ -201,6 +212,67 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+        holder.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (post.getPublisher().equals(fuser.getUid())){
+                    PopupMenu popup = new PopupMenu(Objects.requireNonNull(mContext), holder.more);
+
+                    popup.getMenuInflater().inflate(R.menu.current_user_menu, popup.getMenu());
+
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.delete:
+                                    ad = new AlertDialog.Builder(mContext);
+                                    ad.setTitle("Delete");
+                                    ad.setMessage("Are You Sure To Delete The post");
+                                    ad.setCancelable(true);
+
+                                    ad.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            FirebaseDatabase.getInstance().getReference().child("posts").child(post.getPostId()).removeValue();
+                                            Toast.makeText(mContext, "Post Removed Successfully", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+
+                                    AlertDialog alert11 = ad.create();
+                                    alert11.show();
+
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.show();
+                } else {
+                    PopupMenu popup = new PopupMenu(Objects.requireNonNull(mContext), holder.more);
+
+                    popup.getMenuInflater().inflate(R.menu.user_menu, popup.getMenu());
+
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.redirect:
+                                    Intent intent = new Intent(mContext, ProfileActivity.class);
+                                    intent.putExtra("publisherId", post.getPublisher());
+                                    mContext.startActivity(intent);
+                            }
+                            return true;
+                        }
+                    });
+
+                    popup.show();
+                }
+            }
+        });
+
     }
 
     private void noOfComments(String postId, final TextView noOfComments) {
@@ -300,6 +372,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             super(itemView);
 
             doubleTapLikeView = itemView.findViewById(R.id.layout_double_tap_like);
+            more = itemView.findViewById(R.id.post_more);
             imageProfile = itemView.findViewById(R.id.profile_pic);
             like = itemView.findViewById(R.id.like);
             comment = itemView.findViewById(R.id.comment);

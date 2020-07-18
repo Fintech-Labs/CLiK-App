@@ -1,10 +1,12 @@
 package com.example.clik.userprofile;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private ProgressDialog pd;
 
+    private RelativeLayout folloewer;
+    private RelativeLayout following;
+
     private int posts = 0;
 
     private RecyclerView recyclerView_profile;
@@ -83,6 +88,27 @@ public class ProfileActivity extends AppCompatActivity {
         photoAdpatar = new PhotoAdapter(ProfileActivity.this, myPhotoList, publisherId);
         recyclerView_profile.setAdapter(photoAdpatar);
 
+        folloewer = findViewById(R.id.followers);
+        following = findViewById(R.id.following);
+
+        folloewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, ConnectionActivity.class);
+                intent.putExtra("Uid", publisherId);
+                startActivity(intent);
+            }
+        });
+
+
+        following.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this, ConnectionActivity.class);
+                intent.putExtra("Uid", publisherId);
+                startActivity(intent);
+            }
+        });
 
         getUserData();
 

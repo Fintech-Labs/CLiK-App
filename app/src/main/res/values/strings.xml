@@ -50,4 +50,6 @@
     <string name="verify_mobile_number">Verify Mobile Number</string>
     <string name="enter">Enter the verification code we just sent to your mobile number.</string>
     <string name="resending">Code will be Resending in</string>
+    <string name="delete">Delete Post</string>
+    <string name="userprofile">Go To User Profile</string>
 </resources>
