@@ -17,7 +17,8 @@
         app:layout_constraintTop_toBottomOf="@+id/chat_app_bar"
         android:orientation="horizontal"
         android:background="@color/white"
-        android:padding="7.5dp">
+        android:padding="7.5dp"
+        android:id="@+id/linearlayout">
 
         <EditText
             android:id="@+id/editTextTextPersonName2"
@@ -39,6 +40,13 @@
             android:layout_gravity="center"/>
 
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearlayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/recyclerview"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

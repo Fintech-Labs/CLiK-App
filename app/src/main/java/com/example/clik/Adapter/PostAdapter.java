@@ -16,7 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.brouding.doubletaplikeview.DoubleTapLikeView;
-import com.example.clik.Feed.CommentActivity;
+import com.example.clik.Feed.LikeCommentActivity;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
@@ -66,18 +66,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         getComments(post.getPostId(), holder.noOfComments);
 
         holder.description.setText(post.getDiscription());
-        Picasso.get().load(post.getImageUri()).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).into(holder.doubleTapLikeView.imageView, new Callback() {
-            @Override
-            public void onSuccess() {
 
-            }
+        if (post.getImageUri() != null) {
+            Picasso.get().load(post.getImageUri()).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).into(holder.doubleTapLikeView.imageView, new Callback() {
+                @Override
+                public void onSuccess() {
 
-            @Override
-            public void onError(Exception e) {
-                Picasso.get().load(post.getImageUri()).fit().centerCrop().into(holder.doubleTapLikeView.imageView);
-            }
-        });
+                }
 
+                @Override
+                public void onError(Exception e) {
+                    Picasso.get().load(post.getImageUri()).fit().centerCrop().into(holder.doubleTapLikeView.imageView);
+                }
+            });
+        } else {
+            holder.doubleTapLikeView.setVisibility(View.GONE);
+        }
         final ProgressDialog pd = new ProgressDialog(mContext);
         pd.setMessage("wait");
         pd.show();
@@ -92,6 +96,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 assert user != null;
                 holder.username.setText(user.getName());
                 holder.bio.setText(user.getBio());
+
                 Picasso.get().load(user.getProfileUri()).networkPolicy(NetworkPolicy.OFFLINE).into(holder.imageProfile, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -131,7 +136,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CommentActivity.class);
+                Intent intent = new Intent(mContext, LikeCommentActivity.class);
                 intent.putExtra("postId", post.getPostId());
                 intent.putExtra("authorId", post.getPublisher());
                 mContext.startActivity(intent);
@@ -143,7 +148,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.noOfComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CommentActivity.class);
+                Intent intent = new Intent(mContext, LikeCommentActivity.class);
                 intent.putExtra("postId", post.getPostId());
                 intent.putExtra("authorId", post.getPublisher());
                 mContext.startActivity(intent);
@@ -153,7 +158,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.noOfLikes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CommentActivity.class);
+                Intent intent = new Intent(mContext, LikeCommentActivity.class);
                 intent.putExtra("postId", post.getPostId());
                 intent.putExtra("authorId", post.getPublisher());
                 mContext.startActivity(intent);

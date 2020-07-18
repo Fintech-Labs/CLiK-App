@@ -1,5 +1,7 @@
 package com.example.clik.Fragements;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +25,8 @@ import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.example.clik.userAuth.LoginActivity;
+import com.example.clik.userprofile.ConnectionActivity;
 import com.example.clik.userprofile.EditProfile2Activity;
-import com.example.clik.userprofile.SetEmailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +54,12 @@ public class ProfileFragment extends Fragment {
     private TextView noOffollowers;
     private TextView noOffollowing;
 
+    private RelativeLayout followers;
+    private RelativeLayout following;
+
+    private List<String> followingList;
+    private List<String> followerList;
+
     private TextView username;
     private ImageView more;
 
@@ -60,6 +69,8 @@ public class ProfileFragment extends Fragment {
     private List<Post> myPhotoList;
     private PhotoAdapter photoAdpatar;
     private RecyclerView recyclerView;
+
+    private AlertDialog.Builder ad;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,12 +86,18 @@ public class ProfileFragment extends Fragment {
         noOffollowers = v.findViewById(R.id.no_followers);
         noOffollowing = v.findViewById(R.id.no_following);
 
+        followers = v.findViewById(R.id.followers);
+        following = v.findViewById(R.id.following);
+
         username = v.findViewById(R.id.user_name);
         more = v.findViewById(R.id.profile_menu);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         myPhotoList = new ArrayList<>();
+        followingList = new ArrayList<>();
+        followerList = new ArrayList<>();
+
         recyclerView = v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -101,11 +118,29 @@ public class ProfileFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.logout:
-                                FirebaseAuth.getInstance().signOut();
-                                startActivity(new Intent(getContext(), LoginActivity.class));
+                                ad = new AlertDialog.Builder(getContext());
+                                ad.setTitle("Logout");
+                                ad.setMessage("Are You Sure To Logout");
+                                ad.setCancelable(true);
 
-                            case R.id.change_email:
-                                startActivity(new Intent(getContext(), SetEmailActivity.class));
+                                ad.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        FirebaseAuth.getInstance().signOut();
+                                        startActivity(new Intent(getContext(), LoginActivity.class));
+                                        Toast.makeText(getContext(), "Logged Out Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                        Toast.makeText(getContext(), "Logging Out Processes canceled", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                AlertDialog alert11 = ad.create();
+                                alert11.show();
+
                         }
                         return true;
                     }
@@ -122,12 +157,56 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        followers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ConnectionActivity.class);
+                intent.putExtra("Uid", firebaseUser.getUid());
+                startActivity(intent);
+            }
+        });
+
+        following.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ConnectionActivity.class);
+                intent.putExtra("Uid", firebaseUser.getUid());
+                startActivity(intent);
+            }
+        });
+
         getUserData();
         setNoOfFollowers(noOffollowers);
         setNoOfFollowing(noOffollowing);
         getPostData(noOfPosts);
 
         return v;
+    }
+
+    private void getFollowing() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid()).child("following");
+        ref.keepSynced(true);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                followingList.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    String uId = snapshot1.getValue(String.class);
+                    followingList.add(uId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void getFolloewrs() {
     }
 
     private void getPostData(final TextView noOfPosts) {

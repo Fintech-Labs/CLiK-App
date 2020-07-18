@@ -118,7 +118,7 @@ public class FeedFragment extends Fragment {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             assert post != null;
-                            if (snapshot.child(post.getPublisher()).exists()) {
+                            if (snapshot.child(post.getPublisher()).exists() || post.getPublisher().equals(fuser.getUid())) {
                                 postList.add(post);
                             }
                             postAdapter = new PostAdapter(getContext(), postList);

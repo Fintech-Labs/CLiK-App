@@ -21,7 +21,7 @@ public class ChatActivity extends AppCompatActivity {
 
         commonFunctions=new CommonFunctions(ChatActivity.this);
 
-        toolbar=(MaterialToolbar)findViewById(R.id.chat_app_bar);
+        toolbar=findViewById(R.id.chat_app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -17,8 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatFragmentActivities.ChatActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".ChatFragmentActivities.ChatActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".ChatFragmentActivities.SearchActivity_ChatFragment"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".userprofile.ProfilePosts" />
@@ -34,13 +35,13 @@
         </provider>
 
         <activity android:name=".userprofile.ProfileActivity" />
-        <activity android:name=".Feed.CommentActivity" />
-        <activity android:name=".userprofile.SetEmailActivity" />
+        <activity android:name=".Feed.LikeCommentActivity" />
         <activity android:name=".userprofile.EditProfile2Activity" />
         <activity android:name=".Feed.AddPostActivity" />
         <activity android:name=".userAuth.EditProfileActivity" />
         <activity android:name=".userAuth.VerifyPhoneActivity" />
         <activity android:name=".userAuth.LoginActivity" />
+        <activity android:name=".userprofile.ConnectionActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

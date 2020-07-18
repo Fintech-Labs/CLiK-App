@@ -15,8 +15,7 @@
     <string name="bio">Bio</string>
     <string name="name">Name</string>
     <string name="change_prof">"Change Profile "</string>
-    <string name="email">Email</string>
-    <string name="change_email">Set Email/Phone</string>
+    <string name="change_email">Change Email</string>
     <string name="add_description_hashtag">Add Description, HashTag</string>
     <string name="add_a_image">Add a Image</string>
     <string name="open_camera">Open Camera</string>
@@ -41,8 +40,13 @@
     <string name="follow">Follow</string>
     <string name="add_post_photos_here">Add Post and Photoes Here</string>
     <string name="logout">Logout</string>
-    <string name="search_here">Search Here...</string>
+    <string name="search_here">Search Here…</string>
     <string name="edit_profile">edit profile</string>
     <string name="likes">Likes</string>
     <string name="comments">Comments</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="continue1">continue</string>
+    <string name="verify_mobile_number">Verify Mobile Number</string>
+    <string name="enter">Enter the verification code we just sent to your mobile number.</string>
 </resources>

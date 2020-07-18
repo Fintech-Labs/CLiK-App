@@ -1,4 +1,4 @@
-package com.example.clik.Feed;
+package com.example.clik.userprofile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,43 +10,42 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.example.clik.Feed.Fragments.CommentFragment;
-import com.example.clik.Feed.Fragments.LikesFragment;
 import com.example.clik.R;
+import com.example.clik.userprofile.Fragements.FollowersFragment;
+import com.example.clik.userprofile.Fragements.FollowingFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentActivity extends AppCompatActivity {
+public class ConnectionActivity extends AppCompatActivity {
+
+    private String Uid;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    private CommentFragment commentFragment;
-    private LikesFragment likesFragment;
-
-    private String postId;
-
+    private FollowersFragment followersFragment;
+    private FollowingFragment followingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+        setContentView(R.layout.activity_connection);
 
-        postId = getIntent().getStringExtra("postId");
+        Uid = getIntent().getStringExtra("Uid");
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
 
-        commentFragment = new CommentFragment(postId);
-        likesFragment = new LikesFragment(postId);
+        followersFragment = new FollowersFragment(Uid);
+        followingFragment = new FollowingFragment(Uid);
 
         tabLayout.setupWithViewPager(viewPager);
 
         ViewPagerAdaptor viewPagerAdpater = new ViewPagerAdaptor(getSupportFragmentManager(), 0);
-        viewPagerAdpater.addFragment(commentFragment, "Comment");
-        viewPagerAdpater.addFragment(likesFragment, "Likes");
+        viewPagerAdpater.addFragment(followersFragment, "Followers");
+        viewPagerAdpater.addFragment(followingFragment, "Following");
         viewPager.setAdapter(viewPagerAdpater);
     }
 
