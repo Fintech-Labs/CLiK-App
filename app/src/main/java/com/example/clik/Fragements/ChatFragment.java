@@ -2,6 +2,7 @@ package com.example.clik.Fragements;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.clik.ChatFragmentActivities.Chat;
+import com.example.clik.Model.Chat;
 import com.example.clik.ChatFragmentActivities.SearchActivity_ChatFragment;
 import com.example.clik.ChatFragmentActivities.UserAdapterChat;
 import com.example.clik.Model.User;
@@ -111,12 +112,16 @@ public class ChatFragment extends Fragment {
                     for (String id : usersList) {
                         assert user != null;
                         if (user.getuId().equals(id)) {
-                            if (mUsers.size() != 0) {
-                                for (User user1 : mUsers) {
-                                    if (!user.getuId().equals(user1.getuId())) {
-                                        mUsers.add(user);
+                            if (!mUsers.isEmpty()) {
+                                int i=0;
+                                for (i=0;i<mUsers.size();i++) {
+                                    User user1=mUsers.get(i);
+                                    if (user.getuId().equals(user1.getuId())) {
+                                        Log.i("Check UIDs",user.getuId()+", "+user1.getuId());
+                                        break;
                                     }
                                 }
+                                if (i==mUsers.size()) mUsers.add(user);
                             } else {
                                 mUsers.add(user);
                             }

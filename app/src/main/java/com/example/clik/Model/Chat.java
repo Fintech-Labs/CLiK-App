@@ -1,4 +1,4 @@
-package com.example.clik.ChatFragmentActivities;
+package com.example.clik.Model;
 
 public class Chat {
     public String sender;

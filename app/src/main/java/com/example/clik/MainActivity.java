@@ -17,11 +17,20 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Fragment sFragment = null;
+    FeedFragment feedFragment;
+    ChatFragment chatFragment;
+    SearchFragment searchFragment;
+    ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        feedFragment=new FeedFragment();
+        chatFragment=new ChatFragment();
+        searchFragment=new SearchFragment();
+        profileFragment=new ProfileFragment();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -36,19 +45,19 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()){
                         case R.id.nav_feed:
-                            sFragment = new FeedFragment();
+                            sFragment = feedFragment;
                             break;
 
                         case R.id.nav_chat:
-                            sFragment = new ChatFragment();
+                            sFragment = chatFragment;
                             break;
 
                         case R.id.nav_search:
-                            sFragment = new SearchFragment();
+                            sFragment = searchFragment;
                             break;
 
                         case R.id.nav_settings:
-                            sFragment = new ProfileFragment();
+                            sFragment = profileFragment;
                             break;
 
                     }
