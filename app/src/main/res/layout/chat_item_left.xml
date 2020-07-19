@@ -14,7 +14,7 @@
     <TextView
 
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_toEndOf="@id/profile_image"
         android:text="hello"
         android:layout_centerVertical="true"

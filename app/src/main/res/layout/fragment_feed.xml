@@ -5,22 +5,22 @@
     android:background="#ffffff">
 
     <LinearLayout
+        android:id="@+id/top1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="horizontal"
-    android:id="@+id/top1"
-    android:weightSum="10"
-        android:gravity="center">
+        android:weightSum="10">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_pic"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_margin="5dp"
-        android:layout_weight="1.6" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1.6" />
 
         <Button
             android:id="@+id/search_bar2"
@@ -35,27 +35,37 @@
             android:textAlignment="textStart"
             android:textSize="12sp" />
 
-    <ImageView
-        android:id="@+id/add_image"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:src="@drawable/ic_plus_circle"
-        android:contentDescription="@string/todo" />
+        <ImageView
+            android:id="@+id/add_image"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_plus_circle" />
 
-</LinearLayout>
-    <androidx.core.widget.NestedScrollView
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/isfollow"
         android:layout_below="@+id/top1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please Follow Someone to see posts"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:layout_margin="15dp"/>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/isfollow">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

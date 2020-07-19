@@ -143,14 +143,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+        holder.no_comments_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentFunction(post);
+            }
+        });
+
         holder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, LikeCommentActivity.class);
-                intent.putExtra("postId", post.getPostId());
-                intent.putExtra("authorId", post.getPublisher());
-                mContext.startActivity(intent);
+                intentFunction(post);
+            }
+        });
 
+        holder.no_likes_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentFunction(post);
             }
         });
 
@@ -158,20 +168,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.noOfComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, LikeCommentActivity.class);
-                intent.putExtra("postId", post.getPostId());
-                intent.putExtra("authorId", post.getPublisher());
-                mContext.startActivity(intent);
+                intentFunction(post);
             }
         });
 
         holder.noOfLikes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, LikeCommentActivity.class);
-                intent.putExtra("postId", post.getPostId());
-                intent.putExtra("authorId", post.getPublisher());
-                mContext.startActivity(intent);
+                intentFunction(post);
             }
         });
 
@@ -214,7 +218,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (post.getPublisher().equals(fuser.getUid())){
+                if (post.getPublisher().equals(fuser.getUid())) {
                     PopupMenu popup = new PopupMenu(Objects.requireNonNull(mContext), holder.more);
 
                     popup.getMenuInflater().inflate(R.menu.current_user_menu, popup.getMenu());
@@ -272,6 +276,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+    }
+
+    private void intentFunction(Post post) {
+        Intent intent = new Intent(mContext, LikeCommentActivity.class);
+        intent.putExtra("postId", post.getPostId());
+        intent.putExtra("authorId", post.getPublisher());
+        mContext.startActivity(intent);
     }
 
     private void noOfComments(String postId, final TextView noOfComments) {
@@ -363,6 +374,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView bio;
         public TextView noOfLikes;
         public TextView noOfComments;
+        public TextView no_likes_text;
+        public TextView no_comments_text;
+
         SocialTextView description;
 
         public DoubleTapLikeView doubleTapLikeView;
@@ -372,7 +386,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             doubleTapLikeView = itemView.findViewById(R.id.layout_double_tap_like);
             more = itemView.findViewById(R.id.post_more);
+            no_likes_text = itemView.findViewById(R.id.no_likes_text);
             imageProfile = itemView.findViewById(R.id.profile_pic);
+            no_comments_text = itemView.findViewById(R.id.no_comments_text);
             like = itemView.findViewById(R.id.like);
             comment = itemView.findViewById(R.id.comment);
             username = itemView.findViewById(R.id.username);
