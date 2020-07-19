@@ -79,7 +79,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private void verifyCode(String code) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         signInWithCredential(credential);
-        finish();
     }
 
     private void signInWithCredential(PhoneAuthCredential credential) {
@@ -96,10 +95,12 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         Intent intent = new Intent(VerifyPhoneActivity.this, EditProfileActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
+                        finish();
                     } else {
                         Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
+                        finish();
                     }
                 } else {
                     Toast.makeText(VerifyPhoneActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();

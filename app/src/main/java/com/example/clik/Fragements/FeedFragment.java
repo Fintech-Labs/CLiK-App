@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,6 +46,8 @@ public class FeedFragment extends Fragment {
     private List<Post> postList;
     private Button search;
 
+    private TextView isfollow;
+
     private FirebaseUser fuser;
 
     @Override
@@ -56,6 +59,7 @@ public class FeedFragment extends Fragment {
         add = v.findViewById(R.id.add_image);
         user_pic = v.findViewById(R.id.profile_pic);
         search = v.findViewById(R.id.search_bar2);
+        isfollow = v.findViewById(R.id.isfollow);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +142,12 @@ public class FeedFragment extends Fragment {
                             if (snapshot.child(post.getPublisher()).exists() || post.getPublisher().equals(fuser.getUid())) {
                                 postList.add(post);
                             }
-                            postAdapter = new PostAdapter(getContext(), postList);
-                            recyclerViewPosts.setAdapter(postAdapter);
-                            pd.dismiss();
+                            if (!postList.isEmpty()) {
+                                isfollow.setVisibility(View.GONE);
+                                postAdapter = new PostAdapter(getContext(), postList);
+                                recyclerViewPosts.setAdapter(postAdapter);
+                                pd.dismiss();
+                            }
                         }
 
                         @Override
