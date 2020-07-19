@@ -18,11 +18,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/chat_app_bar"
-        android:background="@color/colorAccent">
+        android:background="#8FABF4">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/profile_image"
             android:src="@drawable/socialview_ic_mention_placeholder"/>
 
@@ -31,9 +31,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:textSize="18sp"
-            android:layout_marginLeft="25dp"
+            android:layout_marginLeft="10dp"
             android:textColor="#fff"
-            android:textStyle="bold"
             android:layout_marginStart="25dp" />
 
     </com.google.android.material.appbar.MaterialToolbar>
@@ -41,19 +40,24 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingVertical="1dp"
         android:layout_width="match_parent"
         android:id="@+id/recyclerview"
+        android:background="#ECECEC"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/app_bar"
         app:layout_constraintBottom_toTopOf="@id/linearlayout1"/>
 
     <LinearLayout
+        android:paddingHorizontal="10dp"
         android:id="@+id/linearlayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/white"
+        android:gravity="center"
+        android:weightSum="12"
         android:paddingVertical="7.5dp">
 
         <ImageButton
@@ -66,16 +70,22 @@
             android:layout_gravity="center"/>
 
         <EditText
+            android:paddingHorizontal="15dp"
+            android:layout_marginHorizontal="5dp"
             android:id="@+id/text_send"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_weight="10"
             android:ems="10"
+
             android:inputType="textPersonName"
-            android:hint="Add text to this message..."
-            android:backgroundTint="@color/white"/>
+            android:background="@drawable/back_search"
+            android:hint="Type a message..."
+            android:textSize="15sp"
+            />
 
         <ImageButton
+
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

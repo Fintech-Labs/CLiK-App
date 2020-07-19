@@ -3,6 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/chat_app_bar"
-    android:background="@color/colorAccent">
+    android:background="#8FABF4">
 
 </com.google.android.material.appbar.MaterialToolbar>
