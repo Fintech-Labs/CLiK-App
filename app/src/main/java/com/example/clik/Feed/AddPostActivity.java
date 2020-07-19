@@ -180,7 +180,11 @@ public class AddPostActivity extends AppCompatActivity {
         postId = ref.push().getKey();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("discription", discription.getText().toString().trim());
+        if(discription.getText().toString().trim().isEmpty()){
+            map.put("discription", null);
+        }else{
+            map.put("discription", discription.getText().toString().trim());
+        }
         map.put("publisher", fuser.getUid());
         map.put("postId", postId);
         map.put("ImageUri", downloadUri);

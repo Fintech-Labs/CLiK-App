@@ -76,9 +76,6 @@ public class FeedFragment extends Fragment {
             }
         });
 
-
-
-
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         FirebaseDatabase.getInstance().getReference().child("users").child(fuser.getUid()).addValueEventListener(new ValueEventListener() {
