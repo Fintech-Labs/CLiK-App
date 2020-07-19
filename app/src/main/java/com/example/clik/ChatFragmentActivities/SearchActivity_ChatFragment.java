@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.clik.Model.User;
 import com.example.clik.R;
@@ -37,6 +38,12 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
         toolbar=findViewById(R.id.chat_app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         recyclerView=findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -44,6 +51,7 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
 
         userList=new ArrayList<>();
 
+        readUsers();
     }
 
     private void readUsers(){
