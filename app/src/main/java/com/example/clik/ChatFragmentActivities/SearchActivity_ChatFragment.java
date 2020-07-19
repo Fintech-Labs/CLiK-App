@@ -1,13 +1,18 @@
 package com.example.clik.ChatFragmentActivities;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clik.Model.ShowChats;
 import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -17,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,6 +35,9 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
 
     private UserAdapterChat userAdapterChat;
     private List<User> userList;
+    private List<ShowChats> showChatsList;
+
+    private EditText searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +59,51 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity_ChatFragment.this));
 
         userList=new ArrayList<>();
+        showChatsList=new ArrayList<>();
 
         readUsers();
+
+        //Search Text Code
+        searchText=findViewById(R.id.searchtext);
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                searchUsers(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+    }
+
+    private void searchUsers(String s){
+        Query query = FirebaseDatabase.getInstance().getReference("users").orderByChild("Name")
+                .startAt(s)
+                .endAt(s+"\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userList.clear();
+                for(DataSnapshot snapshot2 :snapshot.getChildren()){
+                    User user = snapshot2.getValue(User.class);
+                    userList.add(user);
+                }
+                userAdapterChat.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(SearchActivity_ChatFragment.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void readUsers(){

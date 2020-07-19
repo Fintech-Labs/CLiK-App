@@ -15,6 +15,8 @@ import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class UserAdapterChat extends RecyclerView.Adapter<UserAdapterChat.ViewHolder>{
@@ -58,6 +60,7 @@ public class UserAdapterChat extends RecyclerView.Adapter<UserAdapterChat.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView userName;
+        public TextView lastMessage;
         public ImageView profile_image;
 
         public ViewHolder(@NonNull View itemView) {
@@ -65,6 +68,7 @@ public class UserAdapterChat extends RecyclerView.Adapter<UserAdapterChat.ViewHo
 
             userName=itemView.findViewById(R.id.username);
             profile_image=itemView.findViewById(R.id.profile_image);
+            lastMessage=itemView.findViewById(R.id.last_msg);
         }
     }
 }

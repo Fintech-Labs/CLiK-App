@@ -58,10 +58,9 @@
         android:layout_toRightOf="@id/profile_image"
         android:layout_marginTop="5dp"
         android:paddingTop="5dp"
-        android:visibility="gone"
         android:id="@+id/last_msg"
         android:textColor="@color/colorPrimaryDark"
         android:layout_marginLeft="20dp"
-        android:maxLines="1"/>
+        android:maxLines="1" />
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -131,25 +133,44 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);
         hashMap.put("message",message);
+        hashMap.put("time", ServerValue.TIMESTAMP);
 
-        reference.child("Chats").push().setValue(hashMap);
+        reference.child("Chats").child(getChatRoomId(sender,receiver)).push().setValue(hashMap);
+
+        hashMap.clear();
+        hashMap.put("lastMessageBy",sender);
+        hashMap.put("lastMessage",message);
+
+        reference.child("ChatUsers").child(sender).child(receiver).setValue(hashMap);
+        reference.child("ChatUsers").child(receiver).child(sender).setValue(hashMap);
+
+    }
+
+    String getChatRoomId(String a, String b) {
+        if (a.compareTo(b)<0) {
+            return b+"_"+a;
+        } else {
+            return a+"_"+b;
+        }
     }
 
     private void readMessages(final String myId, final String userId, final String imageUrl){
         chatList=new ArrayList<>();
 
-        reference=FirebaseDatabase.getInstance().getReference("Chats");
+        reference=FirebaseDatabase.getInstance().getReference("Chats").child(getChatRoomId(myId,userId));
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 chatList.clear();
                 for (DataSnapshot snapshot:dataSnapshot.getChildren()){
                     Chat chat=snapshot.getValue(Chat.class);
+//
+//                    if ((chat.getReceiver().equals(myId) && chat.getSender().equals(userId)) ||
+//                            (chat.getSender().equals(myId) && chat.getReceiver().equals(userId))){
+//                        chatList.add(chat);
+//                    }
 
-                    if ((chat.getReceiver().equals(myId) && chat.getSender().equals(userId)) ||
-                            (chat.getSender().equals(myId) && chat.getReceiver().equals(userId))){
-                        chatList.add(chat);
-                    }
+                    chatList.add(chat);
 
                     messageAdapterChat=new MessageAdapterChat(ChatActivity.this,chatList,imageUrl);
                     recyclerView.setAdapter(messageAdapterChat);

@@ -2,7 +2,6 @@ package com.example.clik.Fragements;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.clik.Model.Chat;
 import com.example.clik.ChatFragmentActivities.SearchActivity_ChatFragment;
 import com.example.clik.ChatFragmentActivities.UserAdapterChat;
+import com.example.clik.Model.ShowChats;
 import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,8 +38,10 @@ public class ChatFragment extends Fragment {
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+    FirebaseAuth mAuth;
 
     private List<String> usersList;
+    private List<ShowChats> showChatsList;
 
     View view;
 
@@ -66,22 +67,32 @@ public class ChatFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         usersList = new ArrayList<>();
+        showChatsList=new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
+        mAuth=FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference("ChatUsers").child(mAuth.getUid());
+        createMyUserList();
+
+        return view;
+    }
+
+    private void createMyUserList(){
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Chat chat = snapshot.getValue(Chat.class);
+                    ShowChats showChats = snapshot.getValue(ShowChats.class);
 
-                    if (chat.getSender().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getReceiver());
-                    }
-                    if (chat.getReceiver().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getSender());
-                    }
+//                    if (chat.getSender().equals(firebaseUser.getUid())) {
+//                        usersList.add(chat.getReceiver());
+//                    }
+//                    if (chat.getReceiver().equals(firebaseUser.getUid())) {
+//                        usersList.add(chat.getSender());
+//                    }
+                    usersList.add(snapshot.getKey());
+                    showChatsList.add(showChats);
                 }
 
                 readChats();
@@ -92,8 +103,6 @@ public class ChatFragment extends Fragment {
 
             }
         });
-
-        return view;
     }
 
     private void readChats() {
@@ -117,7 +126,7 @@ public class ChatFragment extends Fragment {
                                 for (i=0;i<mUsers.size();i++) {
                                     User user1=mUsers.get(i);
                                     if (user.getuId().equals(user1.getuId())) {
-                                        Log.i("Check UIDs",user.getuId()+", "+user1.getuId());
+//                                        Log.i("Check UIDs",user.getuId()+", "+user1.getuId());
                                         break;
                                     }
                                 }
@@ -127,6 +136,8 @@ public class ChatFragment extends Fragment {
                             }
                         }
                     }
+
+                    mUsers.add(user);
                 }
 
                 userAdapterChat = new UserAdapterChat(getContext(), mUsers);
