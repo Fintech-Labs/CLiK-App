@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -19,36 +18,52 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ChatFragmentActivities.ChatActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ChatFragmentActivities.SearchActivity_ChatFragment"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".userprofile.ProfilePosts" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userprofile.ProfilePosts"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.clik.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".userprofile.ProfileActivity" />
-        <activity android:name=".Feed.LikeCommentActivity" />
-        <activity android:name=".userprofile.EditProfile2Activity" />
-        <activity android:name=".Feed.AddPostActivity" />
-        <activity android:name=".userAuth.EditProfileActivity" />
-        <activity android:name=".userAuth.VerifyPhoneActivity" />
-        <activity android:name=".userAuth.LoginActivity" />
-        <activity android:name=".userprofile.ConnectionActivity" />
+        <activity android:name=".userprofile.ProfileActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Feed.LikeCommentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userprofile.EditProfile2Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Feed.AddPostActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userAuth.EditProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userAuth.VerifyPhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userAuth.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".userprofile.ConnectionActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".WelcomeActivity" />
+            android:theme="@style/Base.Theme.AppCompat"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".WelcomeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/SplashScreen">
+            android:theme="@style/SplashScreen"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +72,8 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
