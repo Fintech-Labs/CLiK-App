@@ -10,23 +10,15 @@ Show the world who you are. :earth_americas:
 
 CliK makes sharing photos with your friends as simple as clicking them. In-app photo clicking and sharing, that makes it easier for you to share moments with those who matter.
 
-< Insert App Feed mockup >
 
 ### :couple: Chat endlessly with CLiK Messages
 
-Messages celebrates the spirit of India making it possible for you to chat in more than 100 Indian Languages! Language barrier? What's that?
-
-< Insert Chat mockup (Make chat in mockup interesting and in Hindi) >
+Messages celebrates the spirit of India making it possible for you to chat in CLiK!
 
 ### :fire: Post stories that vanish after 24 hours 
 
 Remembering Mahatma Gandhi's freedom for struggle on Independence Day? Post a story and pay your respects to the freedom fighters :triangular_flag_on_post:
 
-< Insert story with MG screenshot mockup >
-
 ### :key: Highest Privacy Standards
 
 OTP verification for mobile numbers linked to Aadhar Cards along with the highest security procedures make CliK users completely in control of who can view their content.
-
-< Insert OTP screenshot mockup >
-
