@@ -112,11 +112,15 @@ public class CommentFragment extends Fragment {
                 else{
                     ref = FirebaseDatabase.getInstance().getReference().child("comments").child(postId);
 
+                    String commentId = ref.push().getKey();
+
                     HashMap<String , Object> map = new HashMap<>();
                     map.put("publisher", fuser.getUid());
                     map.put("comment", comment_text);
+                    map.put("commentId", commentId);
 
-                    ref.push().setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    assert commentId != null;
+                    ref.child(commentId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
@@ -160,7 +164,7 @@ public class CommentFragment extends Fragment {
                     mComments.add(comment);
                 }
 
-                commentAdpater = new CommentAdpater(getContext(), mComments);
+                commentAdpater = new CommentAdpater(getContext(), mComments, postId);
                 recyclerView.setAdapter(commentAdpater);
                 pd.dismiss();
             }

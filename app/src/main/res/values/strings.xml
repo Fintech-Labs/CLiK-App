@@ -52,4 +52,6 @@
     <string name="resending">Code will be Resending in</string>
     <string name="delete">Delete Post</string>
     <string name="userprofile">Go To User Profile</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
 </resources>

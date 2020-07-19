@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
-    <androidx.cardview.widget.CardView
-        android:layout_centerVertical="true"
-        android:id="@+id/round"
-        app:cardCornerRadius="25dp"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/comment_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
-    <ImageView
-        android:id="@+id/profile_pic"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        />
-    </androidx.cardview.widget.CardView>
+        tools:ignore="UselessParent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/round"
-        android:layout_toStartOf="@+id/favorite"
-        android:layout_margin="10dp">
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_weight="0.35"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="Full Name"
-            android:textColor="#000000"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/comment"
-            android:layout_width="match_parent"
-            android:text="comment"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/round"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"/>
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="25dp">
 
-    <ImageView
-        android:layout_centerVertical="true"
-        android:id="@+id/favorite"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="10dp"
-        android:paddingTop="7dp"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_chat"/>
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/todo" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:layout_toStartOf="@+id/favorite"
+            android:layout_toEndOf="@+id/round"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.35"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/todo"
+            android:paddingTop="7dp"
+            android:src="@drawable/ic_message_circle" />
+    </RelativeLayout>
 
 </RelativeLayout>

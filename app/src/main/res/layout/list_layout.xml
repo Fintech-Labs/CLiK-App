@@ -16,8 +16,7 @@
             android:id="@+id/profile_photo"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/img2"/>
+            android:scaleType="fitXY"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -47,7 +46,7 @@
         android:background="@drawable/back"
         android:paddingHorizontal="15dp"
         android:textColor="@color/colorAccent"
-        android:textSize="12dp"
-        android:visibility="gone"></Button>
+        android:textSize="12sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

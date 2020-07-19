@@ -7,22 +7,22 @@
         <item
             android:id="@+id/nav_feed"
             android:icon="@drawable/ic_home99"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search99"
-            android:title="Search" />
+            android:title="@string/search" />
 
         <item
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat"
-            android:title="Chat" />
+            android:title="@string/chat" />
 
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_user99"
-            android:title="Profile" />
+            android:title="@string/profile" />
 
     </group>
 </menu>

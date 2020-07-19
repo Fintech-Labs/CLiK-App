@@ -72,10 +72,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         noOfComments(post.getPostId(), holder.noOfComments);
         getComments(post.getPostId(), holder.noOfComments);
 
-        if (post.getDiscription() == null) {
-            holder.description.setVisibility(View.GONE);
-        } else {
+        if (post.getDiscription() != null) {
             holder.description.setText(post.getDiscription());
+        } else {
+            holder.description.setVisibility(View.GONE);
         }
 
         if (post.getImageUri() != null) {
