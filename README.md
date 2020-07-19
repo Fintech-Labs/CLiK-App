@@ -10,14 +10,9 @@ Show the world who you are. :earth_americas:
 
 CliK makes sharing photos with your friends as simple as clicking them. In-app photo clicking and sharing, that makes it easier for you to share moments with those who matter.
 
-
 ### :couple: Chat endlessly with CLiK Messages
 
 Messages celebrates the spirit of India making it possible for you to chat in CLiK!
-
-### :fire: Post stories that vanish after 24 hours 
-
-Remembering Mahatma Gandhi's freedom for struggle on Independence Day? Post a story and pay your respects to the freedom fighters :triangular_flag_on_post:
 
 ### :key: Highest Privacy Standards
 
