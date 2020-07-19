@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class AddPostActivity extends AppCompatActivity {
     private TextView post;
     private SocialAutoCompleteTextView discription;
     private RecyclerView photoRecyclr;
+    private ImageButton closeBtn;
 
     private static final int IMAGE_PICK_CODE = 1;
     private static final int CAMERA_CODE = 2;
@@ -82,6 +84,14 @@ public class AddPostActivity extends AppCompatActivity {
         photoRecyclr = findViewById(R.id.post_images_recycler);
         discription = findViewById(R.id.description);
         cameraImg = findViewById(R.id.add_img_camera);
+        closeBtn=findViewById(R.id.close);
+
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         fileNameList = new ArrayList<>();
         fileDoneList = new ArrayList<>();
