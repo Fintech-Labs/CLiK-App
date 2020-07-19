@@ -157,6 +157,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
+        holder.no_likes_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentFunction(post);
+            }
+        });
+
 
         holder.noOfComments.setOnClickListener(new View.OnClickListener() {
             @Override
