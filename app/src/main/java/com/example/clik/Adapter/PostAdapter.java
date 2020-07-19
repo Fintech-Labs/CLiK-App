@@ -24,7 +24,6 @@ import com.example.clik.Feed.LikeCommentActivity;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
-import com.example.clik.userAuth.LoginActivity;
 import com.example.clik.userprofile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

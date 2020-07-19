@@ -109,6 +109,7 @@ public class ChatFragment extends Fragment {
 
                     // Display unique users from chats
                     for (String id : usersList) {
+                        assert user != null;
                         if (user.getuId().equals(id)) {
                             if (mUsers.size() != 0) {
                                 for (User user1 : mUsers) {

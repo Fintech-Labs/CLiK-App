@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.clik.Fragements.ChatFragment;
 import com.example.clik.Fragements.FeedFragment;
-import com.example.clik.Fragements.SearchFragment;
 import com.example.clik.Fragements.ProfileFragment;
+import com.example.clik.Fragements.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

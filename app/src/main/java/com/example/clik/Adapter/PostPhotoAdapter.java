@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clik.Model.Post;
 import com.example.clik.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
