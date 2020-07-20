@@ -54,4 +54,5 @@
     <string name="userprofile">Go To User Profile</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
+    <string name="delete_comment">Delete Comment</string>
 </resources>
