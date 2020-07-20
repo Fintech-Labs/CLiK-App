@@ -20,8 +20,9 @@
         android:layout_centerVertical="true"
         android:id="@+id/show_message"
         android:textSize="18sp"
-        android:paddingTop="4dp"
+        android:paddingVertical="7dp"
         android:paddingHorizontal="15dp"
+        android:layout_marginEnd="25dp"
 
         android:background="@drawable/background_left"/>
 

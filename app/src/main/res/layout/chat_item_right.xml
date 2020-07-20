@@ -19,14 +19,15 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/background_right"
             android:text="hello"
             android:layout_alignParentEnd="true"
             android:id="@+id/show_message"
             android:textSize="18sp"
             android:textColor="#fff"
-            android:paddingTop="4dp"
+            android:paddingVertical="7dp"
+            android:layout_marginStart="25dp"
             android:paddingHorizontal="15dp"
             android:layout_alignParentRight="true" />
 
@@ -34,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txt_seen"
+            android:visibility="gone"
             android:layout_below="@id/show_message"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
