@@ -104,4 +104,10 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FirebaseAuth.getInstance().signOut();
+    }
 }

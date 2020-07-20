@@ -128,6 +128,7 @@ public class ProfileFragment extends Fragment {
                                     public void onClick(DialogInterface dialog, int which) {
                                         FirebaseAuth.getInstance().signOut();
                                         startActivity(new Intent(getContext(), LoginActivity.class));
+                                        Objects.requireNonNull(getActivity()).finish();
                                         Toast.makeText(getContext(), "Logged Out Successfully", Toast.LENGTH_SHORT).show();
                                     }
                                 }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

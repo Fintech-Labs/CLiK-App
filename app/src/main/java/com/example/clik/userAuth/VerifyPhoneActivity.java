@@ -91,17 +91,16 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     long creationTimestamp = Objects.requireNonNull(user.getMetadata()).getCreationTimestamp();
                     long lastSignInTimestamp = user.getMetadata().getLastSignInTimestamp();
 
-                    if (creationTimestamp == lastSignInTimestamp) {
+//                    if (creationTimestamp == lastSignInTimestamp) {
                         Intent intent = new Intent(VerifyPhoneActivity.this, EditProfileActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();
-                    } else {
-                        Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
+//                    } else {
+//                        Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                        finish();
+//                    }
                 } else {
                     Toast.makeText(VerifyPhoneActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                 }

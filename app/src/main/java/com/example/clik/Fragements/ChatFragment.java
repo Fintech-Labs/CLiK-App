@@ -84,10 +84,10 @@ public class ChatFragment extends Fragment {
                 usersList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-<<<<<<< HEAD
-=======
-
->>>>>>> daa404d8fb24dc1c6d20658f0316cf8bc2238eea
+//<<<<<<< HEAD
+//=======
+//
+//>>>>>>> daa404d8fb24dc1c6d20658f0316cf8bc2238eea
                     ShowChats showChats = snapshot.getValue(ShowChats.class);
 
 //                    if (chat.getSender().equals(firebaseUser.getUid())) {
@@ -98,8 +98,8 @@ public class ChatFragment extends Fragment {
 //                    }
                     usersList.add(snapshot.getKey());
                     showChatsList.add(showChats);
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
                     Chat chat = snapshot.getValue(Chat.class);
                     assert chat != null;
                     if (chat.getSender().equals(firebaseUser.getUid())) {
@@ -109,7 +109,7 @@ public class ChatFragment extends Fragment {
                         usersList.add(chat.getSender());
                     }
 
->>>>>>> daa404d8fb24dc1c6d20658f0316cf8bc2238eea
+//>>>>>>> daa404d8fb24dc1c6d20658f0316cf8bc2238eea
                 }
 
                 readChats();
