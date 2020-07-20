@@ -44,4 +44,11 @@ dependencies {
     implementation "com.hendraanggrian.appcompat:socialview-commons:0.2"
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.brouding:android-doubletaplikeview:0.2.0'
+
+    //notification dependencies
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.3'
+
+    apply plugin: 'com.google.gms.google-services'
 }

@@ -17,6 +17,7 @@ import com.example.clik.ChatFragmentActivities.UserAdapterChat;
 import com.example.clik.Model.Chat;
 import com.example.clik.Model.ShowChats;
 import com.example.clik.Model.User;
+import com.example.clik.Notifications.Token;
 import com.example.clik.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +78,15 @@ public class ChatFragment extends Fragment {
         reference = FirebaseDatabase.getInstance().getReference("ChatUsers").child(mAuth.getUid());
         createMyUserList();
 
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
         return view;
+    }
+
+    private void updateToken(String token){
+        reference= FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1=new Token(token);
+        reference.child(firebaseUser.getUid()).setValue(token1);
     }
 
     private void createMyUserList(){

@@ -2,6 +2,7 @@ package com.example.clik.ChatFragmentActivities;
 
 import android.annotation.SuppressLint;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,9 +11,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.clik.Model.User;
 import com.example.clik.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -65,6 +77,8 @@ public class VideoActivity extends AppCompatActivity {
                 actionBar.show();
             }
             mControlsView.setVisibility(View.VISIBLE);
+            name_calling.setVisibility(View.VISIBLE);
+            txt.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -100,6 +114,13 @@ public class VideoActivity extends AppCompatActivity {
 
     Intent intent;
 
+    private TextView name_calling,txt;
+
+    FirebaseUser firebaseUser;
+    DatabaseReference reference;
+
+    String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,11 +142,37 @@ public class VideoActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.make_call).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.cancel_call).setOnTouchListener(mDelayHideTouchListener);
 
         intent=getIntent();
-        final String userId=intent.getStringExtra("userId");
-        Toast.makeText(this, "User Id:- "+userId, Toast.LENGTH_SHORT).show();
+        userId=intent.getStringExtra("userId");
+//        Toast.makeText(this, "User Id:- "+userId, Toast.LENGTH_SHORT).show();
+
+        name_calling=findViewById(R.id.name_calling);
+        txt=findViewById(R.id.txt);
+
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        reference= FirebaseDatabase.getInstance().getReference();
+
+        putUserDetails();
+
+    }
+
+    void putUserDetails(){
+        reference.child("users").child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user=snapshot.getValue(User.class);
+                name_calling.setText(user.getName());
+                Picasso.get().load(user.getProfileUri()).into((ImageView) mContentView);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -153,6 +200,8 @@ public class VideoActivity extends AppCompatActivity {
             actionBar.hide();
         }
         mControlsView.setVisibility(View.GONE);
+        name_calling.setVisibility(View.GONE);
+        txt.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay

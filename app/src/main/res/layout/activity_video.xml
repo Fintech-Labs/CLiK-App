@@ -9,16 +9,12 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
+    <ImageView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:keepScreenOn="true" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -27,23 +23,63 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_calling"
+            android:text="UserName"
+            android:textSize="30dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="180dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt"
+            android:text="Calling..."
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="150dp"/>
+
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
             style="?metaButtonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
             android:orientation="horizontal"
-            tools:ignore="UselessParent">
+            tools:ignore="UselessParent"
+            android:gravity="center"
+            android:layout_marginBottom="40dp">
 
-            <Button
-                android:id="@+id/dummy_button"
+<!--            <Button-->
+<!--                android:id="@+id/dummy_button"-->
+<!--                style="?metaButtonBarButtonStyle"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Dummy Button"/>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/make_call"
                 style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/make_call"
                 android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:visibility="gone"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/cancel_call"
+                style="?metaButtonBarButtonStyle"
+                android:id="@+id/cancel_call"
+                android:layout_weight="1"/>
 
         </LinearLayout>
     </FrameLayout>

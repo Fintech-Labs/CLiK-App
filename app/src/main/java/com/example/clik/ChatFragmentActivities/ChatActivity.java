@@ -19,6 +19,11 @@ import android.widget.Toast;
 
 import com.example.clik.Model.Chat;
 import com.example.clik.Model.User;
+import com.example.clik.Notifications.Client;
+import com.example.clik.Notifications.Data;
+import com.example.clik.Notifications.MyResponse;
+import com.example.clik.Notifications.Sender;
+import com.example.clik.Notifications.Token;
 import com.example.clik.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +32,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
@@ -36,6 +42,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -54,9 +63,15 @@ public class ChatActivity extends AppCompatActivity {
 
     Intent intent;
 
+    String userId;
+
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     ValueEventListener seenListener;
+
+    APIService apiService;
+
+    boolean notify=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +105,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         intent=getIntent();
-        final String userId=intent.getStringExtra("userId");
+        userId=intent.getStringExtra("userId");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("users").child(userId);
@@ -98,6 +113,8 @@ public class ChatActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                notify=true;
                 String msg=text_send.getText().toString();
 
                 if (!TextUtils.isEmpty(msg)){
@@ -146,6 +163,8 @@ public class ChatActivity extends AppCompatActivity {
                         .show();
             }
         });
+
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
     }
 
     private void seenMessage(String userid){
@@ -169,8 +188,9 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String sender, String receiver, String message){
+    private void sendMessage(String sender, final String receiver, final String message){
 
+        //Save messages to ChatRoomId
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
 
         HashMap<String,Object> hashMap=new HashMap<>();
@@ -180,6 +200,8 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("isSeen",false);
         hashMap.put("time", ServerValue.TIMESTAMP);
 
+
+        //Save last message to chatusers and also add chatuser of a user
         reference.child("Chats").child(getChatRoomId(sender,receiver)).push().setValue(hashMap);
 
         hashMap.clear();
@@ -189,6 +211,80 @@ public class ChatActivity extends AppCompatActivity {
         reference.child("ChatUsers").child(sender).child(receiver).setValue(hashMap);
         reference.child("ChatUsers").child(receiver).child(sender).setValue(hashMap);
 
+
+        //Send notification
+        reference.child("users").child(firebaseUser.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        User user=snapshot.getValue(User.class);
+
+                        if (notify) {
+                            sendNotification(receiver, user.getName(), message);
+                        }
+
+                        notify=false;
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    private void sendNotification(String receiver, final String username, final String message){
+
+        DatabaseReference tokens=FirebaseDatabase.getInstance().getReference("Tokens");
+
+        Query query=tokens.orderByKey().equalTo(receiver);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+
+                    Token token=snapshot.getValue(Token.class);
+
+                    Data data = new Data(
+                            firebaseUser.getUid()
+                            ,R.mipmap.ic_launcher,username+": "+message,
+                            "New Message",
+                            userId
+                    );
+
+                    Sender sender=new Sender(data,token.getToken());
+
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+
+                                    if (response.code()==200){
+                                        if (response.body().success != 1){
+                                            Toast.makeText(ChatActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                }
+                            });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     String getChatRoomId(String a, String b) {

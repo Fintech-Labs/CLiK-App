@@ -55,6 +55,7 @@
             android:clickable="true"
             android:tint="@color/white"
             android:id="@+id/videoBtn"
+            android:visibility="gone"
             android:layout_marginRight="25dp"
             app:layout_constraintEnd_toEndOf="@id/constraintLayout"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
