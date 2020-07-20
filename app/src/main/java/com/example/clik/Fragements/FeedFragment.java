@@ -102,7 +102,7 @@ public class FeedFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -142,25 +142,22 @@ public class FeedFragment extends Fragment {
                             if (snapshot.child(post.getPublisher()).exists() || post.getPublisher().equals(fuser.getUid())) {
                                 postList.add(post);
                             }
-                            if (!postList.isEmpty()) {
-                                isfollow.setVisibility(View.GONE);
-                                postAdapter = new PostAdapter(getContext(), postList);
-                                recyclerViewPosts.setAdapter(postAdapter);
-                                pd.dismiss();
-                            }
-                            else{
-                                pd.dismiss();
-                            }
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                            pd.dismiss();
                         }
                     });
 
                 }
+                if (!postList.isEmpty()) {
+                    isfollow.setVisibility(View.GONE);
+                    postAdapter = new PostAdapter(getContext(), postList);
+                    recyclerViewPosts.setAdapter(postAdapter);
+                }
+                pd.dismiss();
+
             }
 
             @Override

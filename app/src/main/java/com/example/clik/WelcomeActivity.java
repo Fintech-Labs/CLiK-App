@@ -14,13 +14,22 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.clik.userAuth.EditProfileActivity;
 import com.example.clik.userAuth.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,10 +42,13 @@ public class WelcomeActivity extends AppCompatActivity {
     private int[] layouts;
     private Button btnSkip, btnNext;
     private PrefManager prefManager;
+    private FirebaseUser fuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
@@ -125,13 +137,37 @@ public class WelcomeActivity extends AppCompatActivity {
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(fuser.getUid());
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Intent intent;
+                    if (snapshot.getValue() != null) {
+                        intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                    } else {
+                        intent = new Intent(WelcomeActivity.this, EditProfileActivity.class);
+                    }
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(WelcomeActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+
         finish();
+    }
+
+    private boolean isDataAvalabel() {
+        final boolean[] isit = {false};
+
+
+        return isit[0];
     }
 
     //  viewpager change listener
