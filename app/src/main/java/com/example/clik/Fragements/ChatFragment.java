@@ -101,12 +101,13 @@ public class ChatFragment extends Fragment {
 //<<<<<<< HEAD
 //=======
                     Chat chat = snapshot.getValue(Chat.class);
-                    assert chat != null;
-                    if (chat.getSender().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getReceiver());
-                    }
-                    if (chat.getReceiver().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getSender());
+                    if (chat.getSender() != null) {
+                        if (chat.getSender().equals(firebaseUser.getUid())) {
+                            usersList.add(chat.getReceiver());
+                        }
+                        if (chat.getReceiver().equals(firebaseUser.getUid())) {
+                            usersList.add(chat.getSender());
+                        }
                     }
 
 //>>>>>>> daa404d8fb24dc1c6d20658f0316cf8bc2238eea
