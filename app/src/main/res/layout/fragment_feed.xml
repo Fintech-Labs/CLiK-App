@@ -48,19 +48,19 @@
 
     <TextView
         android:id="@+id/isfollow"
-        android:layout_below="@+id/top1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="10dp"
         android:text="Please Follow Someone to see posts"
-        android:gravity="center_horizontal"
         android:textSize="20sp"
         android:layout_centerInParent="true"
+        android:textStyle="bold"
         android:layout_margin="15dp"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/isfollow">
+        android:layout_below="@+id/top1">
 
         <LinearLayout
             android:layout_width="match_parent"

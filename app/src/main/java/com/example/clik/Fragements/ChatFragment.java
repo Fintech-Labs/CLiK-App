@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clik.ChatFragmentActivities.SearchActivity_ChatFragment;
 import com.example.clik.ChatFragmentActivities.UserAdapterChat;
+import com.example.clik.Model.Chat;
 import com.example.clik.Model.ShowChats;
 import com.example.clik.Model.User;
 import com.example.clik.R;
@@ -83,6 +84,10 @@ public class ChatFragment extends Fragment {
                 usersList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> daa404d8fb24dc1c6d20658f0316cf8bc2238eea
                     ShowChats showChats = snapshot.getValue(ShowChats.class);
 
 //                    if (chat.getSender().equals(firebaseUser.getUid())) {
@@ -93,6 +98,18 @@ public class ChatFragment extends Fragment {
 //                    }
                     usersList.add(snapshot.getKey());
                     showChatsList.add(showChats);
+<<<<<<< HEAD
+=======
+                    Chat chat = snapshot.getValue(Chat.class);
+                    assert chat != null;
+                    if (chat.getSender().equals(firebaseUser.getUid())) {
+                        usersList.add(chat.getReceiver());
+                    }
+                    if (chat.getReceiver().equals(firebaseUser.getUid())) {
+                        usersList.add(chat.getSender());
+                    }
+
+>>>>>>> daa404d8fb24dc1c6d20658f0316cf8bc2238eea
                 }
 
                 readChats();

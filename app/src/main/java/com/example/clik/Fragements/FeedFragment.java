@@ -148,6 +148,9 @@ public class FeedFragment extends Fragment {
                                 recyclerViewPosts.setAdapter(postAdapter);
                                 pd.dismiss();
                             }
+                            else{
+                                pd.dismiss();
+                            }
                         }
 
                         @Override

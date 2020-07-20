@@ -93,7 +93,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             holder.doubleTapLikeView.setVisibility(View.GONE);
         }
         final ProgressDialog pd = new ProgressDialog(mContext);
-        pd.setMessage("wait");
+        pd.setMessage("Please Wait");
         pd.show();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(post.getPublisher());
@@ -229,7 +229,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                                 case R.id.delete:
                                     ad = new AlertDialog.Builder(mContext);
                                     ad.setTitle("Delete");
-                                    ad.setMessage("Are You Sure To Delete The post");
+                                    ad.setMessage("Are you sure to delete the post");
                                     ad.setCancelable(true);
 
                                     ad.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
