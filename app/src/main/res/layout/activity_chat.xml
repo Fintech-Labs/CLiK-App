@@ -41,6 +41,7 @@
             android:src="@drawable/ic_videocam"
             android:background="#8FABF4"
             android:visibility="gone"
+            android:id="@+id/videoBtn"
             android:clickable="true" />
 
     </com.google.android.material.appbar.MaterialToolbar>
