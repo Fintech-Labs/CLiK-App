@@ -54,6 +54,7 @@ public class ChatActivity extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+    ValueEventListener seenListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +123,28 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+//        seenMessage(userId);
+    }
 
+    private void seenMessage(String userid){
+        reference=FirebaseDatabase.getInstance().getReference("Chats").child(getChatRoomId(userid,firebaseUser.getUid()));
+        seenListener=reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat=snapshot.getValue(Chat.class);
+
+                    HashMap<String,Object> hashMap=new HashMap<>();
+                    hashMap.put("isSeen",true);
+                    snapshot.getRef().updateChildren(hashMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void sendMessage(String sender, String receiver, String message){
@@ -133,6 +155,7 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);
         hashMap.put("message",message);
+        hashMap.put("isSeen",false);
         hashMap.put("time", ServerValue.TIMESTAMP);
 
         reference.child("Chats").child(getChatRoomId(sender,receiver)).push().setValue(hashMap);
@@ -183,4 +206,26 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+
+//    public void status(String status){
+//        reference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
+//
+//        HashMap<String,Object> hashMap=new HashMap<>();
+//        hashMap.put("status",status);
+//
+//        reference.updateChildren(hashMap);
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        status("online");
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        reference.removeEventListener(seenListener);
+//        status("offline");
+//    }
 }

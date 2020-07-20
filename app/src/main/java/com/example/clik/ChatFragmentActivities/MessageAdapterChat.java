@@ -53,6 +53,12 @@ public class MessageAdapterChat extends RecyclerView.Adapter<MessageAdapterChat.
         Chat chat=chatList.get(position);
         holder.show_message.setText(chat.getMessage());
         Picasso.get().load(imageUrl).into(holder.profile_image);
+
+//        if (chat.isSeen()){
+//            holder.txt_seen.setText("Seen");
+//        }else{
+//            holder.txt_seen.setText("Delivered");
+//        }
     }
 
     @Override
@@ -64,12 +70,14 @@ public class MessageAdapterChat extends RecyclerView.Adapter<MessageAdapterChat.
 
         public TextView show_message;
         public ImageView profile_image;
+        public TextView txt_seen;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             show_message=itemView.findViewById(R.id.show_message);
             profile_image=itemView.findViewById(R.id.profile_image);
+            txt_seen=itemView.findViewById(R.id.txt_seen);
         }
     }
 
@@ -77,10 +85,11 @@ public class MessageAdapterChat extends RecyclerView.Adapter<MessageAdapterChat.
     public int getItemViewType(int position) {
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
+
         if (chatList.get(position).getSender().equals(firebaseUser.getUid())){
-            return MSG_TYPE_RIGHT;
-        }else{
-            return MSG_TYPE_LEFT;
-        }
+                return MSG_TYPE_RIGHT;
+            }else{
+                return MSG_TYPE_LEFT;
+            }
     }
 }

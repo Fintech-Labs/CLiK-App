@@ -5,16 +5,18 @@ public class User {
     String Bio;
     String Name;
     String ProfileUri;
+    String status;
 
 
     public User() {
     }
 
-    public User(String uId, String bio, String name, String profileUri) {
+    public User(String uId, String bio, String name, String profileUri, String status) {
         this.uId = uId;
         this.Bio = bio;
         this.Name = name;
         this.ProfileUri = profileUri;
+        this.status = status;
     }
 
     public String getuId() {
@@ -47,5 +49,13 @@ public class User {
 
     public void setProfileUri(String profileUri) {
         ProfileUri = profileUri;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

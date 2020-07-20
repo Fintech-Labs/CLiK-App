@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -84,7 +83,6 @@ public class ChatFragment extends Fragment {
                 usersList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-<<<<<<< HEAD
                     ShowChats showChats = snapshot.getValue(ShowChats.class);
 
 //                    if (chat.getSender().equals(firebaseUser.getUid())) {
@@ -95,16 +93,6 @@ public class ChatFragment extends Fragment {
 //                    }
                     usersList.add(snapshot.getKey());
                     showChatsList.add(showChats);
-=======
-                    Chat chat = snapshot.getValue(Chat.class);
-                    assert chat != null;
-                    if (chat.getSender().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getReceiver());
-                    }
-                    if (chat.getReceiver().equals(firebaseUser.getUid())) {
-                        usersList.add(chat.getSender());
-                    }
->>>>>>> d1daa95c20c3c72415f1b42d572820cb9f14afb8
                 }
 
                 readChats();
@@ -112,7 +100,7 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -142,17 +130,21 @@ public class ChatFragment extends Fragment {
                                         break;
                                     }
                                 }
-                                if (i==mUsers.size()) mUsers.add(user);
+                                if (i==mUsers.size()) {
+                                    mUsers.add(user);
+
+                                }
                             } else {
                                 mUsers.add(user);
                             }
                         }
                     }
 
-                    mUsers.add(user);
                 }
 
-                userAdapterChat = new UserAdapterChat(getContext(), mUsers);
+
+
+                userAdapterChat = new UserAdapterChat(getContext(), mUsers,true);
                 recyclerView.setAdapter(userAdapterChat);
             }
 

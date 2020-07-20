@@ -84,6 +84,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             map.put("Name", display_name_text);
                             map.put("Bio", "");
                             map.put("ProfileUri", default_pic);
+                            map.put("status","offline");
                             FirebaseDatabase.getInstance().getReference().child("users").child(fuser.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
