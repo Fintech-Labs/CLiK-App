@@ -137,7 +137,9 @@ public class ChatActivity extends AppCompatActivity {
                         .setPositiveButton("Call", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(ChatActivity.this, "Starting video call!!", Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(ChatActivity.this,VideoActivity.class);
+                                intent.putExtra("userId",userId);
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("No",null)
