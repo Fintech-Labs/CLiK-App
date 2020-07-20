@@ -125,7 +125,7 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
                     }
                 }
 
-                userAdapterChat=new UserAdapterChat(SearchActivity_ChatFragment.this,userList,false);
+                userAdapterChat=new UserAdapterChat(SearchActivity_ChatFragment.this,userList,true);
                 recyclerView.setAdapter(userAdapterChat);
             }
 

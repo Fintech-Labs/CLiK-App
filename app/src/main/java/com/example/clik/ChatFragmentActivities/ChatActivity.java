@@ -1,10 +1,12 @@
 package com.example.clik.ChatFragmentActivities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -44,7 +46,7 @@ public class ChatActivity extends AppCompatActivity {
     TextView username;
     RecyclerView recyclerView;
 
-    ImageButton btn_send;
+    ImageButton btn_send,videoBtn;
     EditText text_send;
 
     MessageAdapterChat messageAdapterChat;
@@ -78,6 +80,7 @@ public class ChatActivity extends AppCompatActivity {
         profile_image=findViewById(R.id.profile_image);
         username=findViewById(R.id.username);
         btn_send=findViewById(R.id.btn_send);
+        videoBtn=findViewById(R.id.videoBtn);
         text_send=findViewById(R.id.text_send);
         recyclerView=findViewById(R.id.recyclerview);
 
@@ -124,6 +127,23 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 //        seenMessage(userId);
+
+
+        videoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(ChatActivity.this)
+                        .setTitle("Start Video Call?")
+                        .setPositiveButton("Call", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(ChatActivity.this, "Starting video call!!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
+            }
+        });
     }
 
     private void seenMessage(String userid){
@@ -197,6 +217,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     messageAdapterChat=new MessageAdapterChat(ChatActivity.this,chatList,imageUrl);
                     recyclerView.setAdapter(messageAdapterChat);
+                    recyclerView.scrollToPosition(chatList.size()-1);
                 }
             }
 
