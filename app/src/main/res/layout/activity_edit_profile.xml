@@ -10,43 +10,52 @@
         android:id="@+id/top_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="15dp"
         android:text="Edit Profile"
-        android:textSize="30sp"/>
+        android:textColor="#000000"
+        android:textSize="35sp"/>
 
     <ImageView
         android:id="@+id/profile_pic"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_below="@id/top_text"
+        android:scaleType="fitXY"
         android:layout_centerHorizontal="true"/>
 
     <EditText
         android:id="@+id/display_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/profile_pic"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:hint="Full name"
+        android:background="@drawable/custom_input"
+        android:padding="10dp"
+
         android:inputType="text" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/display_name"
         android:hint="Email"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
+        android:padding="10dp"
+        android:background="@drawable/custom_input"
         android:inputType="textEmailAddress"/>
 
     <Button
         android:id="@+id/register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/email"
         android:layout_margin="10dp"
-        android:text="Register"/>
+        android:background="@drawable/round"
+        android:text="Register"
+        android:textColor="#ffffff"/>
 
 
 </RelativeLayout>
