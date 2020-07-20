@@ -89,6 +89,7 @@
         android:paddingVertical="7.5dp">
 
         <ImageButton
+            android:visibility="gone"
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
