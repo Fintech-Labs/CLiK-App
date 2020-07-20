@@ -22,6 +22,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +36,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private String verificationId;
     private FirebaseAuth mAuth;
     private PinView code1;
+
+    private FirebaseUser fuser;
 
     private TextView timer;
     private TextView resend;
@@ -47,6 +54,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
         timer = findViewById(R.id.timer);
         resend = findViewById(R.id.resend);
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         new CountDownTimer(60000, 1000) {
 
@@ -91,16 +100,16 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     long creationTimestamp = Objects.requireNonNull(user.getMetadata()).getCreationTimestamp();
                     long lastSignInTimestamp = user.getMetadata().getLastSignInTimestamp();
 
-//                    if (creationTimestamp == lastSignInTimestamp) {
+                    if (creationTimestamp == lastSignInTimestamp) {
                         Intent intent = new Intent(VerifyPhoneActivity.this, EditProfileActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-//                    } else {
-//                        Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-//                        finish();
-//                    }
+                    } else {
+                        Intent intent = new Intent(VerifyPhoneActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     Toast.makeText(VerifyPhoneActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                 }
