@@ -60,6 +60,9 @@ public class FeedFragment extends Fragment {
         user_pic = v.findViewById(R.id.profile_pic);
         search = v.findViewById(R.id.search_bar2);
         isfollow = v.findViewById(R.id.isfollow);
+        postList = new ArrayList<>();
+
+        isfollow.setVisibility(View.GONE);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +135,7 @@ public class FeedFragment extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                postList = new ArrayList<>();
+                postList.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     final Post post = snapshot1.getValue(Post.class);
                     ref1.addValueEventListener(new ValueEventListener() {
@@ -142,6 +145,11 @@ public class FeedFragment extends Fragment {
                             if (snapshot.child(post.getPublisher()).exists() || post.getPublisher().equals(fuser.getUid())) {
                                 postList.add(post);
                             }
+                            if (postList.isEmpty()) {
+                                isfollow.setVisibility(View.VISIBLE);
+                            }
+                            postAdapter = new PostAdapter(getContext(), postList);
+                            recyclerViewPosts.setAdapter(postAdapter);
                         }
 
                         @Override
@@ -151,11 +159,7 @@ public class FeedFragment extends Fragment {
                     });
 
                 }
-                if (!postList.isEmpty()) {
-                    isfollow.setVisibility(View.GONE);
-                    postAdapter = new PostAdapter(getContext(), postList);
-                    recyclerViewPosts.setAdapter(postAdapter);
-                }
+
                 pd.dismiss();
 
             }

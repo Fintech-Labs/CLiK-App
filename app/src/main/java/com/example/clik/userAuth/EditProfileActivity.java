@@ -31,7 +31,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private EditText display_name;
     private EditText email;
-    private String default_pic = "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
+    private String default_pic = "https://firebasestorage.googleapis.com/v0/b/clik-e24f0.appspot.com/o/default%2Fuser.png?alt=media&token=6843c07c-755d-4a9e-b34c-45acb35e760f";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
