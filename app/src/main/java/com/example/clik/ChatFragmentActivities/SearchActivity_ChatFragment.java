@@ -3,6 +3,7 @@ package com.example.clik.ChatFragmentActivities;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -96,7 +97,12 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
                 userList.clear();
                 for(DataSnapshot snapshot2 :snapshot.getChildren()){
                     User user = snapshot2.getValue(User.class);
-                    userList.add(user);
+
+                    if (!user.getuId().equals(commonFunctions.getUid())){
+                        userList.add(user);
+//                        Log.i("UidofUser",user.getuId()+", "+commonFunctions.getUid());
+                    }
+
                 }
                 userAdapterChat.notifyDataSetChanged();
             }

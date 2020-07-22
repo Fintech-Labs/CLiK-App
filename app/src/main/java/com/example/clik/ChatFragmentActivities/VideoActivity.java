@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.clik.Model.Call;
 import com.example.clik.Model.User;
 import com.example.clik.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -116,10 +122,8 @@ public class VideoActivity extends AppCompatActivity {
 
     private TextView name_calling,txt;
 
-    FirebaseUser firebaseUser;
-    DatabaseReference reference;
-
     String userId;
+    boolean isOnVideoCall=true;
 
     CommonFunctions commonFunctions=new CommonFunctions(VideoActivity.this);
 
@@ -154,15 +158,12 @@ public class VideoActivity extends AppCompatActivity {
         name_calling=findViewById(R.id.name_calling);
         txt=findViewById(R.id.txt);
 
-        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference();
-
         putUserDetails();
-
+        isOnVideoCall=true;
     }
 
     void putUserDetails(){
-        reference.child("users").child(userId).addValueEventListener(new ValueEventListener() {
+        (commonFunctions.getReference()).child("users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user=snapshot.getValue(User.class);
@@ -249,5 +250,91 @@ public class VideoActivity extends AppCompatActivity {
             (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
                     .child("status").setValue("false");
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        (commonFunctions.getReference()).child("OnVideoCall")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (!snapshot.hasChild(userId) && isOnVideoCall){
+//                            Toast.makeText(VideoActivity.this, "Work!!", Toast.LENGTH_SHORT).show();
+                            final HashMap<String,Object>  callingInfo=new HashMap<>();
+                            callingInfo.put("callBy",commonFunctions.getUid());
+                            callingInfo.put("callTo",userId);
+
+                            (commonFunctions.getReference())
+                                    .child("OnVideoCall")
+                                    .child(commonFunctions.getUid())
+                                    .setValue(callingInfo);
+
+                            (commonFunctions.getReference())
+                                    .child("OnVideoCall")
+                                    .child(userId)
+                                    .setValue(callingInfo);
+
+                        }
+//                        else Toast.makeText(VideoActivity.this, "Not work", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishVideoCall();
+    }
+
+    void finishVideoCall(){
+        new AlertDialog.Builder(VideoActivity.this)
+                .setTitle("End Call?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        isOnVideoCall=false;
+                        (commonFunctions.getReference()).child("OnVideoCall").child(commonFunctions.getUid())
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        final Call call=snapshot.getValue(Call.class);
+
+                                        if (call!=null){
+                                            (commonFunctions.getReference())
+                                                    .child("OnVideoCall")
+                                                    .child(call.getCallTo())
+                                                    .setValue(null);
+
+                                            (commonFunctions.getReference())
+                                                    .child("OnVideoCall")
+                                                    .child(call.getCallBy())
+                                                    .setValue(null);
+
+                                            finish();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                    }
+                })
+                .setNegativeButton("No",null)
+                .show();
+    }
+
+    @Override
+    protected void onStop() {
+        finishVideoCall();
+        super.onStop();
     }
 }
