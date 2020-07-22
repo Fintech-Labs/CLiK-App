@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.MainActivity;
 import com.example.clik.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +33,8 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText display_name;
     private EditText email;
     private String default_pic = "https://firebasestorage.googleapis.com/v0/b/clik-e24f0.appspot.com/o/default%2Fuser.png?alt=media&token=6843c07c-755d-4a9e-b34c-45acb35e760f";
+
+    CommonFunctions commonFunctions=new CommonFunctions(EditProfileActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             map.put("Name", display_name_text);
                             map.put("Bio", "");
                             map.put("ProfileUri", default_pic);
-                            map.put("status","offline");
+
                             FirebaseDatabase.getInstance().getReference().child("users").child(fuser.getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -109,5 +112,25 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+        }
     }
 }

@@ -121,6 +121,8 @@ public class VideoActivity extends AppCompatActivity {
 
     String userId;
 
+    CommonFunctions commonFunctions=new CommonFunctions(VideoActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -227,5 +229,25 @@ public class VideoActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+        }
     }
 }

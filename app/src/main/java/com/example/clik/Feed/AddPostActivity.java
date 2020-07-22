@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clik.Adapter.UploadListAdpater;
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.MainActivity;
 import com.example.clik.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -73,6 +74,8 @@ public class AddPostActivity extends AppCompatActivity {
     private String postId;
 
     private ProgressDialog pd;
+
+    CommonFunctions commonFunctions=new CommonFunctions(AddPostActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -344,6 +347,26 @@ public class AddPostActivity extends AppCompatActivity {
 
     private String getFileExtension(Uri uri) {
         return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+        }
     }
 
 }

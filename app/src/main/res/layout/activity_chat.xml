@@ -25,42 +25,54 @@
             android:layout_height="wrap_content"
             android:id="@+id/constraintLayout">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/profile_image"
-            android:src="@drawable/socialview_ic_mention_placeholder"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/profile_image"
+                android:src="@drawable/socialview_ic_mention_placeholder"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:textColor="#fff"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@id/profile_image"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/username"
+                android:textSize="18sp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#fff"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toEndOf="@id/profile_image"
+                app:layout_constraintTop_toTopOf="@+id/profile_image"
+                android:layout_marginTop="5dp"
+                />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_videocam"
-            android:background="#8FABF4"
-            android:clickable="true"
-            android:tint="@color/white"
-            android:id="@+id/videoBtn"
-            android:visibility="gone"
-            android:layout_marginRight="25dp"
-            app:layout_constraintEnd_toEndOf="@id/constraintLayout"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            android:focusable="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/lastseen"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:textColor="#1C49B9"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toEndOf="@id/profile_image"
+                app:layout_constraintTop_toBottomOf="@id/username"
+                />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_videocam"
+                android:background="#8FABF4"
+                android:clickable="true"
+                android:tint="@color/white"
+                android:id="@+id/videoBtn"
+                android:visibility="gone"
+                android:layout_marginRight="25dp"
+                app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                android:focusable="true" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,7 +119,6 @@
             android:layout_height="40dp"
             android:layout_weight="10"
             android:ems="10"
-
             android:inputType="textPersonName"
             android:background="@drawable/back_search"
             android:hint="Type a message..."

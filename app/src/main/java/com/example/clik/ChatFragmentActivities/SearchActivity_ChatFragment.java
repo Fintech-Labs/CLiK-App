@@ -39,6 +39,8 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
 
     private EditText searchText;
 
+    CommonFunctions commonFunctions=new CommonFunctions(SearchActivity_ChatFragment.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,7 +127,7 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
                     }
                 }
 
-                userAdapterChat=new UserAdapterChat(SearchActivity_ChatFragment.this,userList,true);
+                userAdapterChat=new UserAdapterChat(SearchActivity_ChatFragment.this,userList,false);
                 recyclerView.setAdapter(userAdapterChat);
             }
 
@@ -134,5 +136,25 @@ public class SearchActivity_ChatFragment extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+        }
     }
 }

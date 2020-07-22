@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clik.Adapter.PostAdapter;
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.Model.Post;
 import com.example.clik.R;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +28,8 @@ public class ProfilePosts extends AppCompatActivity {
     private List<Post> mPosts;
     private RecyclerView profile_posts;
     private PostAdapter postAdapter;
+
+    CommonFunctions commonFunctions=new CommonFunctions(ProfilePosts.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,5 +78,25 @@ public class ProfilePosts extends AppCompatActivity {
                 pd.dismiss();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+        }
     }
 }

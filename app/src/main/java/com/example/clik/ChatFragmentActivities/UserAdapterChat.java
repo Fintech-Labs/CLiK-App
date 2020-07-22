@@ -59,7 +59,7 @@ public class UserAdapterChat extends RecyclerView.Adapter<UserAdapterChat.ViewHo
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         ShowChats showChats=snapshot.getValue(ShowChats.class);
-                        if (showChats!=null && isChat){
+                        if (showChats!=null){
                             holder.lastMessage.setText(showChats.getLastMessage());
                         }
                     }
@@ -70,18 +70,18 @@ public class UserAdapterChat extends RecyclerView.Adapter<UserAdapterChat.ViewHo
                     }
                 });
 
-//        if (isChat){
-//            if (user.getStatus().equals("online")){
-//                holder.img_on.setVisibility(View.VISIBLE);
-//                holder.img_off.setVisibility(View.GONE);
-//            }else{
-//                holder.img_on.setVisibility(View.GONE);
-//                holder.img_off.setVisibility(View.VISIBLE);
-//            }
-//        }else{
-//            holder.img_off.setVisibility(View.GONE);
-//            holder.img_on.setVisibility(View.GONE);
-//        }
+        if (isChat){
+            if (user.getStatus().equals("true")){
+                holder.img_on.setVisibility(View.VISIBLE);
+                holder.img_off.setVisibility(View.GONE);
+            }else{
+                holder.img_on.setVisibility(View.GONE);
+                holder.img_off.setVisibility(View.VISIBLE);
+            }
+        }else{
+            holder.img_off.setVisibility(View.GONE);
+            holder.img_on.setVisibility(View.GONE);
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

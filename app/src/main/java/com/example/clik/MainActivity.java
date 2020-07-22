@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.Fragements.ChatFragment;
 import com.example.clik.Fragements.FeedFragment;
 import com.example.clik.Fragements.ProfileFragment;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 
@@ -28,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
     SearchFragment searchFragment;
     ProfileFragment profileFragment;
 
-    FirebaseUser firebaseUser;
-    DatabaseReference reference;
+    CommonFunctions commonFunctions=new CommonFunctions(MainActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +42,34 @@ public class MainActivity extends AppCompatActivity {
         searchFragment=new SearchFragment();
         profileFragment=new ProfileFragment();
 
-        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container, new FeedFragment()).commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+
+//            (commonFunctions.getReference()).child("lastSeen").child(commonFunctions.getUid())
+//                    .setValue(ServerValue.TIMESTAMP);
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
@@ -81,24 +103,4 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
 
-//    public void status(String status){
-//        reference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
-//
-//        HashMap<String,Object> hashMap=new HashMap<>();
-//        hashMap.put("status",status);
-//
-//        reference.updateChildren(hashMap);
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        status("online");
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        status("offline");
-//    }
 }

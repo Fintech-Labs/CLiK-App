@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.Fragements.ProfileFragment;
 import com.example.clik.Model.User;
 import com.example.clik.R;
@@ -49,6 +50,8 @@ public class EditProfile2Activity extends AppCompatActivity {
     private DatabaseReference ref;
     private Uri mImageUri;
     private FirebaseUser fuser;
+
+    CommonFunctions commonFunctions=new CommonFunctions(EditProfile2Activity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +194,26 @@ public class EditProfile2Activity extends AppCompatActivity {
             });
         }else {
             Toast.makeText(EditProfile2Activity.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
         }
     }
 }

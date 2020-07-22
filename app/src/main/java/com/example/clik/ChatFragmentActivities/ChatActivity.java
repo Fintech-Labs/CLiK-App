@@ -52,7 +52,7 @@ public class ChatActivity extends AppCompatActivity {
     CommonFunctions commonFunctions;
 
     CircleImageView profile_image;
-    TextView username;
+    TextView username,lastSeen;
     RecyclerView recyclerView;
 
     ImageButton btn_send,videoBtn;
@@ -94,6 +94,7 @@ public class ChatActivity extends AppCompatActivity {
 
         profile_image=findViewById(R.id.profile_image);
         username=findViewById(R.id.username);
+        lastSeen=findViewById(R.id.lastseen);
         btn_send=findViewById(R.id.btn_send);
         videoBtn=findViewById(R.id.videoBtn);
         text_send=findViewById(R.id.text_send);
@@ -165,6 +166,28 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
+        setOnlineStatus(lastSeen);
+    }
+
+    void setOnlineStatus(final TextView textView){
+        (commonFunctions.getReference()).child("users").child(userId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user=snapshot.getValue(User.class);
+                        textView.setText(
+                                user.getStatus().equals("true")
+                                        ?"Online"
+                                        :""
+                                );
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void seenMessage(String userid){
@@ -326,25 +349,23 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-//    public void status(String status){
-//        reference= FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
-//
-//        HashMap<String,Object> hashMap=new HashMap<>();
-//        hashMap.put("status",status);
-//
-//        reference.updateChildren(hashMap);
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        status("online");
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        reference.removeEventListener(seenListener);
-//        status("offline");
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+        }
+    }
 }

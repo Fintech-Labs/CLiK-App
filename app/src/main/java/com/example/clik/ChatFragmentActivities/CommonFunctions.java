@@ -19,9 +19,6 @@ public class CommonFunctions {
     FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
 
-    FirebaseUser firebaseUser;
-    DatabaseReference reference;
-
     public CommonFunctions(Context context) {
         this.context = context;
     }
@@ -46,5 +43,13 @@ public class CommonFunctions {
         });
 
         return username[0];
+    }
+
+    public DatabaseReference getReference(){
+        return databaseReference;
+    }
+
+    public FirebaseUser getCurrentUser(){
+        return firebaseAuth.getCurrentUser();
     }
 }

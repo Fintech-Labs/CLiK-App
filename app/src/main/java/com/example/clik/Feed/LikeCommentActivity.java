@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.Feed.Fragments.CommentFragment;
 import com.example.clik.Feed.Fragments.LikesFragment;
 import com.example.clik.R;
@@ -28,6 +29,7 @@ public class LikeCommentActivity extends AppCompatActivity {
 
     private String postId;
 
+    CommonFunctions commonFunctions=new CommonFunctions(LikeCommentActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,26 @@ public class LikeCommentActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmensTitle.get(position);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
         }
     }
 }

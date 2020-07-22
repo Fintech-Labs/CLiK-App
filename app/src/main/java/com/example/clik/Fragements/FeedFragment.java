@@ -89,18 +89,20 @@ public class FeedFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 final User user = snapshot.getValue(User.class);
-                assert user != null;
-                Picasso.get().load(user.getProfileUri()).networkPolicy(NetworkPolicy.OFFLINE).into(user_pic, new Callback() {
-                    @Override
-                    public void onSuccess() {
+                if (user!=null) {
+                    Picasso.get().load(user.getProfileUri()).networkPolicy(NetworkPolicy.OFFLINE).into(user_pic, new Callback() {
 
-                    }
+                        @Override
+                        public void onSuccess() {
 
-                    @Override
-                    public void onError(Exception e) {
-                        Picasso.get().load(user.getProfileUri()).into(user_pic);
-                    }
-                });
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Picasso.get().load(user.getProfileUri()).into(user_pic);
+                        }
+                    });
+                }
             }
 
             @Override

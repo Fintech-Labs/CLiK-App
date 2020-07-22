@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.R;
 import com.example.clik.userprofile.Fragements.FollowersFragment;
 import com.example.clik.userprofile.Fragements.FollowingFragment;
@@ -27,6 +28,8 @@ public class ConnectionActivity extends AppCompatActivity {
 
     private FollowersFragment followersFragment;
     private FollowingFragment followingFragment;
+
+    CommonFunctions commonFunctions=new CommonFunctions(ConnectionActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,26 @@ public class ConnectionActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmensTitle.get(position);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
         }
     }
 }

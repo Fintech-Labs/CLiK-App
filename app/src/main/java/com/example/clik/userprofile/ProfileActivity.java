@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clik.Adapter.PhotoAdapter;
+import com.example.clik.ChatFragmentActivities.CommonFunctions;
 import com.example.clik.Model.Post;
 import com.example.clik.Model.User;
 import com.example.clik.R;
@@ -59,6 +60,8 @@ public class ProfileActivity extends AppCompatActivity {
     private RecyclerView recyclerView_profile;
     private List<Post> myPhotoList;
     private PhotoAdapter photoAdpatar;
+
+    CommonFunctions commonFunctions=new CommonFunctions(ProfileActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -292,5 +295,25 @@ public class ProfileActivity extends AppCompatActivity {
                 pd.dismiss();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("true");
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if ((commonFunctions.getCurrentUser())!=null){
+            (commonFunctions.getReference()).child("users").child(commonFunctions.getUid())
+                    .child("status").setValue("false");
+        }
     }
 }
