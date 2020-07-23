@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="2dp"
     android:layout_height="wrap_content">
 
 

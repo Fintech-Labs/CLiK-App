@@ -2,6 +2,7 @@ package com.example.clik;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
+    private long backPressedTime;
 
+    private Toast backToast;
     BottomNavigationView bottomNavigationView;
     Fragment sFragment = null;
     FeedFragment feedFragment;
@@ -101,4 +104,20 @@ public class MainActivity extends AppCompatActivity {
 //        super.onPause();
 //        status("offline");
 //    }
+
+    @Override
+    public void onBackPressed() {
+
+
+        if(backPressedTime+2000>System.currentTimeMillis()){
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        } else{
+          backToast =  Toast.makeText(getBaseContext(),"Press back again to exit",Toast.LENGTH_SHORT);
+          backToast.show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
+    }
 }

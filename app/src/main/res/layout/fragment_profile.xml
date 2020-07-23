@@ -45,12 +45,18 @@
         </Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appbar2">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/appbar2"
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
 
@@ -210,5 +216,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"/>
+    </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
