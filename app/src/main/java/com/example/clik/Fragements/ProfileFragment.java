@@ -1,9 +1,11 @@
 package com.example.clik.Fragements;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +22,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.clik.AboutActivity;
 import com.example.clik.Adapter.PhotoAdapter;
 import com.example.clik.Model.Post;
+import com.example.clik.Model.Share;
 import com.example.clik.Model.User;
 import com.example.clik.R;
 import com.example.clik.userAuth.LoginActivity;
@@ -135,13 +139,23 @@ public class ProfileFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        Toast.makeText(getContext(), "Logging Out Processes canceled", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Logging Out Process cancelled", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
                                 AlertDialog alert11 = ad.create();
                                 alert11.show();
+                                break;
 
+                            case R.id.aboutus:
+                                startActivity(new Intent(getContext(), AboutActivity.class));
+                                break;
+
+                            case R.id.Share :
+
+                                shareData();
+
+                                break;
                         }
                         return true;
                     }
@@ -278,5 +292,29 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void shareData(){
+        DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference().child("Share");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+             String k;
+             k = snapshot.getValue().toString();
+             Log.v("share",k);
+                Intent intent_share = new Intent(Intent.ACTION_SEND);
+                intent_share.setType("text/plain");
+                String shareSub ="CLiK App";
+                intent_share.putExtra(Intent.EXTRA_SUBJECT,shareSub);
+                intent_share.putExtra(Intent.EXTRA_TEXT,k);
+                startActivity(Intent.createChooser(intent_share,"Share using"));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
