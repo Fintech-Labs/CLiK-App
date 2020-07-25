@@ -141,13 +141,11 @@ public class WelcomeActivity extends AppCompatActivity {
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Intent intent;
                     if (snapshot.getValue() != null) {
-                        intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                     } else {
-                        intent = new Intent(WelcomeActivity.this, EditProfileActivity.class);
+                        startActivity(new Intent(WelcomeActivity.this, EditProfileActivity.class));
                     }
-                    startActivity(intent);
                 }
 
                 @Override
@@ -161,13 +159,6 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         finish();
-    }
-
-    private boolean isDataAvalabel() {
-        final boolean[] isit = {false};
-
-
-        return isit[0];
     }
 
     //  viewpager change listener

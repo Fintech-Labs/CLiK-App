@@ -50,6 +50,8 @@ public class FeedFragment extends Fragment {
 
     private FirebaseUser fuser;
 
+    LinearLayoutManager linearLayoutManager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class FeedFragment extends Fragment {
         isfollow = v.findViewById(R.id.isfollow);
         postList = new ArrayList<>();
 
-        isfollow.setVisibility(View.GONE);
+//        isfollow.setVisibility(View.GONE);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +113,8 @@ public class FeedFragment extends Fragment {
 
         recyclerViewPosts = v.findViewById(R.id.recycler_view);
         recyclerViewPosts.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.supportsPredictiveItemAnimations();
         linearLayoutManager.setStackFromEnd(true);
         linearLayoutManager.setReverseLayout(true);
         recyclerViewPosts.setLayoutManager(linearLayoutManager);
@@ -144,10 +147,9 @@ public class FeedFragment extends Fragment {
                             assert post != null;
                             if (snapshot.child(post.getPublisher()).exists() || post.getPublisher().equals(fuser.getUid())) {
                                 postList.add(post);
+                                isfollow.setVisibility(View.GONE);
                             }
-                            if (postList.isEmpty()) {
-                                isfollow.setVisibility(View.VISIBLE);
-                            }
+
                             postAdapter = new PostAdapter(getContext(), postList);
                             recyclerViewPosts.setAdapter(postAdapter);
                         }
