@@ -4,13 +4,17 @@
 
     <item
         android:id="@+id/Share"
-        android:title="Share"/>
+        android:title="Share"
+        />
     <item
         android:id="@+id/aboutus"
-        android:title="About Us"/>
+        android:title="About Us"
+        />
 
     <item
         android:id="@+id/logout"
-        android:title="Sign Out" />
+        android:title="Log Out"
+        />
+
 
 </menu>

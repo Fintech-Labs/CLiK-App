@@ -1,9 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".AboutActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+    <TextView
+        android:id="@+id/developers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="Developers"
+        android:textSize="25sp"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"/>
+
+        <androidx.cardview.widget.CardView
+            android:background="#ECECEC"
+            android:layout_below="@id/developers"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="15dp"
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_ayush"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="75dp">
+                <ImageView
+
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ayush"/>
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/name_ayush"
+                    android:layout_marginTop="13dp"
+                    android:layout_below="@id/card_ayush"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ayush Vatsal"
+                    android:textSize="20dp"
+                    android:textColor="#504F4F"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_ayush"
+                    android:layout_marginBottom="20dp"
+                    android:text="vatsalayush31@gmail.com"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:background="#ECECEC"
+            android:layout_below="@id/card2"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="15dp"
+
+            android:id="@+id/card3"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_shreyas"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="75dp">
+                    <ImageView
+
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/shreyas"/>
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/name_shreyas"
+                    android:layout_marginTop="13dp"
+                    android:layout_below="@id/card_shreyas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shreyas Kadu"
+                    android:textSize="20dp"
+                    android:textColor="#504F4F"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_shreyas"
+                    android:layout_marginBottom="20dp"
+                    android:text="shreyask085@gmail.com"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:background="#ECECEC"
+            android:layout_below="@id/card1"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="15dp"
+
+            android:id="@+id/card2"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_rohan"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="75dp">
+                    <ImageView
+
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ronlek"/>
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/name_rohan"
+                    android:layout_marginTop="13dp"
+                    android:layout_below="@id/card_rohan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rohan Lekhwani"
+                    android:textSize="20dp"
+                    android:textColor="#504F4F"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_rohan"
+                    android:layout_marginBottom="20dp"
+                    android:text="rohanlekhwani@gmail.com"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:background="#ECECEC"
+            android:layout_below="@id/card3"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="15dp"
+
+            android:id="@+id/card4"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_swarnim"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="75dp">
+                    <ImageView
+
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/swarnim"/>
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/name_swarnim"
+                    android:layout_marginTop="13dp"
+                    android:layout_below="@id/card_swarnim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Swarnim Pratap Singh"
+                    android:textSize="20dp"
+                    android:textColor="#504F4F"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/name_swarnim"
+                    android:layout_marginBottom="20dp"
+                    android:text="swarnimpratap132@gmail.com"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+</ScrollView>
