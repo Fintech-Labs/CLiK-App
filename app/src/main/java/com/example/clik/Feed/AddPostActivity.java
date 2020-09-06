@@ -84,7 +84,7 @@ public class AddPostActivity extends AppCompatActivity {
         photoRecyclr = findViewById(R.id.post_images_recycler);
         discription = findViewById(R.id.description);
         cameraImg = findViewById(R.id.add_img_camera);
-        closeBtn=findViewById(R.id.close);
+        closeBtn = findViewById(R.id.close);
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,12 +127,16 @@ public class AddPostActivity extends AppCompatActivity {
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                    String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                    requestPermissions(permissions, PERMISSION_CODE_GALLERY);
+                if (downloadUri == null) {
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, PERMISSION_CODE_GALLERY);
 
+                    } else {
+                        pickImageFromGallery();
+                    }
                 } else {
-                    pickImageFromGallery();
+                    Toast.makeText(AddPostActivity.this, "only one image can be selected", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -140,16 +144,20 @@ public class AddPostActivity extends AppCompatActivity {
         cameraImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkCameraHardware(AddPostActivity.this)) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
-                        String[] permissions = {Manifest.permission.CAMERA};
-                        requestPermissions(permissions, PERMISSION_CODE_CAMERA);
+                if (downloadUri == null) {
+                    if (checkCameraHardware(AddPostActivity.this)) {
+                        if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                            String[] permissions = {Manifest.permission.CAMERA};
+                            requestPermissions(permissions, PERMISSION_CODE_CAMERA);
 
+                        } else {
+                            dispatchTakePictureIntent();
+                        }
                     } else {
-                        dispatchTakePictureIntent();
+                        Toast.makeText(AddPostActivity.this, "Device Do Not Have Camera", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(AddPostActivity.this, "Device Do Not Have Camera", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddPostActivity.this, "only one image can be selected", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -174,15 +182,17 @@ public class AddPostActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         pd.setMessage("Adding Post");
         pd.show();
+        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
 
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("posts");
 
         postId = ref.push().getKey();
 
         HashMap<String, Object> map = new HashMap<>();
-        if(discription.getText().toString().trim().isEmpty()){
+        if (discription.getText().toString().trim().isEmpty()) {
             map.put("discription", null);
-        }else{
+        } else {
             map.put("discription", discription.getText().toString().trim());
         }
         map.put("publisher", fuser.getUid());

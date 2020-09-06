@@ -15,13 +15,34 @@
       },
       "oauth_client": [
         {
-          "client_id": "403815492356-oeoi3v021okkgq50h7qvflbve9ed5n4m.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.clik",
-            "certificate_hash": "3ea167612a33af0055b458ff7e0283f4c9500eae"
-          }
-        },
+          "client_id": "403815492356-dgdtc6o37t0d1fl6mcu1enlhlgdh5vbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPQ5mW_ywcvORRtJay6YVUzUu1lx-fmq8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403815492356-dgdtc6o37t0d1fl6mcu1enlhlgdh5vbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403815492356:android:031a90e76c761f226b3e51",
+        "android_client_info": {
+          "package_name": "com.teamphoenix.iiitp.ChatApp"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "403815492356-dgdtc6o37t0d1fl6mcu1enlhlgdh5vbo.apps.googleusercontent.com",
           "client_type": 3
