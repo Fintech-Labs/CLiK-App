@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.clik">
+    package="com.fintech.clik">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,29 +10,29 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
-        android:name=".CLik"
+        android:name="com.fintech.clik.CLik"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name="com.fintech.clik.AboutActivity"></activity>
         <activity
-            android:name=".ChatFragmentActivities.ChatActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.fintech.clik.ChatFragmentActivities.ChatActivity"
+            android:parentActivityName="com.fintech.clik.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChatFragmentActivities.SearchActivity_ChatFragment"
-            android:parentActivityName=".MainActivity"
+            android:name="com.fintech.clik.ChatFragmentActivities.SearchActivity_ChatFragment"
+            android:parentActivityName="com.fintech.clik.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userprofile.ProfilePosts"
+            android:name="com.fintech.clik.userprofile.ProfilePosts"
             android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.clik.fileprovider"
+            android:authorities="com.fintech.clik.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
             android:screenOrientation="portrait">
@@ -42,38 +42,38 @@
         </provider>
 
         <activity
-            android:name=".userprofile.ProfileActivity"
+            android:name="com.fintech.clik.userprofile.ProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Feed.LikeCommentActivity"
+            android:name="com.fintech.clik.Feed.LikeCommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userprofile.EditProfile2Activity"
+            android:name="com.fintech.clik.userprofile.EditProfile2Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Feed.AddPostActivity"
+            android:name="com.fintech.clik.Feed.AddPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userAuth.EditProfileActivity"
+            android:name="com.fintech.clik.userAuth.EditProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userAuth.VerifyPhoneActivity"
+            android:name="com.fintech.clik.userAuth.VerifyPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userAuth.LoginActivity"
+            android:name="com.fintech.clik.userAuth.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".userprofile.ConnectionActivity"
+            android:name="com.fintech.clik.userprofile.ConnectionActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.fintech.clik.WelcomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashScreen"
+            android:name="com.fintech.clik.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/SplashScreen">
             <intent-filter>
@@ -83,7 +83,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.fintech.clik.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
