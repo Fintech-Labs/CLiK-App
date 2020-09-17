@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,9 +31,19 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,6 +67,10 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
     ValueEventListener seenListener;
+
+    private byte encryptedKey[] = {9, 115, 51, 86, 105, 4, -31, -23, -68, 88, 17, 20, 3, -105, 119, -53};
+    private Cipher cipher, decipher;
+    private SecretKeySpec secretKeySpec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +158,15 @@ public class ChatActivity extends AppCompatActivity {
                         .show();
             }
         });
+
+        try {
+            cipher = Cipher.getInstance("AES");
+            decipher = Cipher.getInstance("AES");
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        secretKeySpec = new SecretKeySpec(encryptedKey, "AES");
     }
 
     private void seenMessage(String userid){
@@ -173,7 +197,10 @@ public class ChatActivity extends AppCompatActivity {
         HashMap<String,Object> hashMap=new HashMap<>();
         hashMap.put("sender",sender);
         hashMap.put("receiver",receiver);
-        hashMap.put("message",message);
+
+        String encryptedMessage = AESEncryptionMethod(message);
+
+        hashMap.put("message",encryptedMessage);
         hashMap.put("isSeen",false);
         hashMap.put("time", ServerValue.TIMESTAMP);
 
@@ -186,6 +213,46 @@ public class ChatActivity extends AppCompatActivity {
         reference.child("ChatUsers").child(sender).child(receiver).setValue(hashMap);
         reference.child("ChatUsers").child(receiver).child(sender).setValue(hashMap);
 
+    }
+
+    private String AESEncryptionMethod(String string){
+        byte[] stringByte = string.getBytes();
+        byte[] encryptedByte = new byte[stringByte.length];
+
+        try {
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+            encryptedByte = cipher.doFinal(stringByte);
+        } catch (BadPaddingException | InvalidKeyException | IllegalBlockSizeException e) {
+            e.printStackTrace();
+        }
+
+        String encryptedMessage = string;
+
+        try {
+            encryptedMessage = new String(encryptedByte, StandardCharsets.ISO_8859_1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return encryptedMessage;
+    }
+
+    private String AESDecryptionMethod(String string){
+        byte[] encryptedByte = string.getBytes(StandardCharsets.ISO_8859_1);
+        String decryptedString = string;
+
+        byte[] decryption;
+
+        try {
+            decipher.init(cipher.DECRYPT_MODE, secretKeySpec);
+            decryption = decipher.doFinal(encryptedByte);
+
+            decryptedString = new String(decryption);
+        } catch (BadPaddingException | IllegalBlockSizeException | InvalidKeyException e) {
+            e.printStackTrace();
+        }
+
+        return decryptedString;
     }
 
     String getChatRoomId(String a, String b) {
@@ -211,6 +278,8 @@ public class ChatActivity extends AppCompatActivity {
 //                            (chat.getSender().equals(myId) && chat.getReceiver().equals(userId))){
 //                        chatList.add(chat);
 //                    }
+
+                    chat.setMessage(AESDecryptionMethod(chat.getMessage()));
 
                     chatList.add(chat);
 
