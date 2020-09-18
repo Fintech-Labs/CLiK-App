@@ -314,7 +314,7 @@ public class AddPostActivity extends AppCompatActivity {
             }
             if (photoFile != null) {
                 Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.clik.fileprovider",
+                        "com.fintech.clik.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, CAMERA_CODE);
