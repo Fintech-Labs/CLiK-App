@@ -31,4 +31,4 @@ OTP verification for mobile numbers linked to Aadhar Cards along with the highes
 ![CLiK Followers](https://i.postimg.cc/18L8fYCC/Screenshot-20200720-160819-framed.png)
 ![CLiK Post Likes](https://i.postimg.cc/ppchtdDt/Screenshot-20200720-160629-framed.png)
 
-Apk Download Link : https://drive.google.com/file/d/1x1Ep8LWKtPsj_Pvdul6k7fpxIAj8rdQN/view?usp=sharing
+Apk Download Link : https://play.google.com/store/apps/details?id=com.fintech.clik
